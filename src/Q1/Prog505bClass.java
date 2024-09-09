@@ -26,11 +26,6 @@ public class Prog505bClass {
         public Student(String first, String last, int t1, int t2, int t3, int t4, int t5) {
             this.first = first;
             this.last = last;
-            avgT1 = t1;
-            avgT2 = t2;
-            avgT3 = t3;
-            avgT4 = t4;
-            avgT5 = t5;
             avgGrade = 0;
             grade = "";
             stuCnt++;
@@ -39,9 +34,6 @@ public class Prog505bClass {
             this.t3 += t3;
             this.t4 += t4;
             this.t5 += t5;
-        }
-
-        public void addGrades() {
             avgT1 += t1;
             avgT2 += t2;
             avgT3 += t3;
@@ -66,7 +58,20 @@ public class Prog505bClass {
             avgT5 /= stuCnt;
         }
 
-        public String getGrade() {}
+        public String getGrade() { return grade; }
+        public String getFirst() { return first; }
+        public String getLast() { return last; }
+        public int getT1() { return t1; }
+        public int getT2() { return t2; }
+        public int getT3() { return t3; }
+        public int getT4() { return t4; }
+        public int getT5() { return t5; }
+        public int getAvgT1() { return avgT1; }
+        public int getAvgT2() { return avgT2; }
+        public int getAvgT3() { return avgT3; }
+        public int getAvgT4() { return avgT4; }
+        public int getAvgT5() { return avgT5; }
+
     }
 
     public static void main(String[] args) {
@@ -85,6 +90,22 @@ public class Prog505bClass {
                 Student student = new Student(first, last, t1, t2, t3, t4, t5);
                 students.add(student);
             }
+
+            for (Student student : students) {
+                String first = student.getFirst();
+                String last = student.getLast();
+                int t1 = student.getT1();
+                int t2 = student.getT2();
+                int t3 = student.getT3();
+                int t4 = student.getT4();
+                int t5 = student.getT5();
+                student.calcGrade();
+                String grade = student.getGrade();
+                double avgGrade = student.avgGrade;
+                System.out.printf("%s %s\t\t%d\t%d\t%d\t%d\t%d\t\t%.1f\t%s", first, last, t1, t2, t3, t4, t5, avgGrade, grade);
+            }
+
+            for (in)
 
         } catch (IOException e) {
             System.out.println("Can't find data file!");
