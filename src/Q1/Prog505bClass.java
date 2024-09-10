@@ -105,7 +105,7 @@ public class Prog505bClass {
                 System.out.printf("%s %s\t\t%d\t%d\t%d\t%d\t%d\t\t%.1f\t%s", first, last, t1, t2, t3, t4, t5, avgGrade, grade);
             }
 
-            for (in)
+
 
         } catch (IOException e) {
             System.out.println("Can't find data file!");
