@@ -44,7 +44,15 @@ public class Prog1050a {
                     computePercentage(records, 4, "H") + "%");
             System.out.println("Fruits profit lost in 2012: " +
                     moneyFormat.format(computeProfitLostIn2012(records, "Fruits")));
-            // TODO
+            System.out.println("High priority sales shipped more than 3 days late: " +
+                    computeHighPriorityLateSales(records));
+            System.out.println("Country with highest profit on Personal Care items: " +
+                    computeHighestProfit(records, 2, "Personal Care"));
+            System.out.println("Region that bought the most Snacks: " +
+                    computeMaxByField(records, 2, "Snacks", 0));
+            System.out.printf("Record of sales to African nations: " +
+                    computeCount(record, 2));
+            // TODO: the rest
         }
     }
 
@@ -58,7 +66,7 @@ public class Prog1050a {
                                                               int fIndex2, String value2) {
         int count = 0;
         for (var record : records) if (record.fields[fIndex1].equalsIgnoreCase(value1) &&
-                                       record.fields[fIndex1].equalsIgnoreCase(value1)) count++;
+                                       record.fields[fIndex2].equalsIgnoreCase(value2)) count++;
         return count;
     }
 
@@ -90,6 +98,78 @@ public class Prog1050a {
                 lostProfit += Double.parseDouble(record.fields[13]);
         return lostProfit;
     }
+
+    public static int computeHighPriorityLateSales(List<SalesRecord> records) {
+        int count = 0;
+        var dateFormat = new SimpleDateFormat("M/d/yyyy");
+        for (var record : records) {
+            if (record.fields[4].equalsIgnoreCase("H")) {
+                try {
+                    Date orderDate = dateFormat.parse(record.fields[5]);
+                    Date shipDate = dateFormat.parse(record.fields[7]);
+
+                    // Calculate the difference in days between order/ship dates
+                    long diffInMs = Math.abs(shipDate.getTime() - orderDate.getTime());
+                    long diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+
+                    if (diffInDays > 3) count++;
+
+                } catch (ParseException e) { e.printStackTrace(); }
+            }
+        }
+        return count;
+    }
+
+    public static String computeHighestProfit(List<SalesRecord> records, int fIndex, String value) {
+        String highestCountry = "N/A";
+        double highestProfit = 0;
+        for (var record : records) {
+            if (record.fields[fIndex].equalsIgnoreCase(value)) {
+                double profit = Double.parseDouble(record.fields[13]);
+                if (profit > highestProfit) {
+                    highestProfit = profit;
+                    highestCountry = record.fields[1];
+                }
+            }
+        }
+
+        return highestCountry;
+    }
+
+    public static String computeMaxByField(List<SalesRecord> records, int fIndex,
+                                          String itemType, int resultFIndex) {
+        String topRegion = "N/A";
+        int maxCount = 0;
+        var regions = new ArrayList<String>();
+
+        // Get a list of all the unique regions in the dataset
+        for (var record : records) {
+            if (record.fields[fIndex].equalsIgnoreCase(itemType)) {
+                String region = record.fields[resultFIndex];
+                if (!regions.contains(region)) regions.add(region);
+            }
+        }
+
+        // Count occurrences of each unique region
+        for (var region : regions) {
+            int count = computeCount(records, fIndex, itemType, resultFIndex, region);
+//            int count = 0;
+//            for (var record : records)
+//                if (record.fields[fIndex].equalsIgnoreCase(itemType) &&
+//                record.fields[resultfIndex].equalsIgnoreCase(region))
+//                    count++;
+            if (count > maxCount) {
+                maxCount = count;
+                topRegion = region;
+            }
+        }
+
+        return topRegion;
+    }
+
+    public static int computeTotalSales(List<SalesRecord> records, int fIndex, fIndex2, String region) {
+
+    }
 }
 /*
 Sales to Europe: 129286
@@ -97,4 +177,7 @@ Cereal bought by Cambodia: 1164596
 Total profit on Meat: $11,933,838,488.00
 High priority sales percentage: 24.9974%
 Fruits profit lost in 2012: $67,345,418.37
+High priority sales shipped more than 3 days late: 115166
+Country with highest profit on Personal Care items: Iceland
+Region that bought the most Snacks: Sub-Saharan Africa
  */
