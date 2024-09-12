@@ -14,6 +14,7 @@ class SalesRecord {
 // Region,Country,Item Type,Sales Channel,Order Priority,Order Date,Order ID,Ship Date,
 // Units Sold,Unit Price,Unit Cost,Total Revenue,Total Cost,Total Profit
 public class Prog1050a {
+    private static double totalProfitLoss = 0;
     public static List<SalesRecord> loadSalesData(String filepath) {
         var records = new ArrayList<SalesRecord>();
         try {
@@ -50,8 +51,11 @@ public class Prog1050a {
                     computeHighestProfit(records, 2, "Personal Care"));
             System.out.println("Region that bought the most Snacks: " +
                     computeMaxByField(records, 2, "Snacks", 0));
-            System.out.printf("Record of sales to African nations: " +
-                    computeCount(record, 2));
+            System.out.println("Records of sales to African nations: " +
+                    computeCount(records, 0, "Sub-Saharan Africa")
+            deleteCountryOrders(records, 1, 8, "Kuwait");
+            limitCountrySales(records, 1, 8, "Uganda", 100, "Cosmetics");
+            deleteCountryOrdersPriority(records, 1, 4, "Sub-saharan Africa");
             // TODO: the rest
         }
     }
@@ -167,9 +171,46 @@ public class Prog1050a {
         return topRegion;
     }
 
-    public static int computeTotalSales(List<SalesRecord> records, int fIndex, fIndex2, String region) {
-
+    public static void deleteCountryOrders(List<SalesRecord> records, int fIndex, String country) {
+        for (int lcv = 0; lcv < records.size(); lcv++) {
+            if (records.get(lcv).fields[fIndex].equalsIgnoreCase(country)) {
+                records.remove(lcv);
+                lcv--;
+            }
+        }
     }
+
+    public static void limitCountrySales(List<SalesRecord> records, int fIndex, int fIndex2,
+                                         String country, int limit, String item) {
+        for (var record : records) {
+            if (record.fields[fIndex].equalsIgnoreCase(country)) {
+                int lostSales = Integer.parseInt(record.fields[fIndex2]) - 100;
+                record.fields[fIndex2] = String.valueOf(limit);
+
+                double lostCost = lostSales * Double.parseDouble(record.fields[10]);
+                double lostRevenue = lostSales * Double.parseDouble(record.fields[9]);
+                double lostProfit = lostRevenue - lostCost;
+
+                record.fields[11] = String.valueOf(lostRevenue);
+                record.fields[12] = String.valueOf(lostCost);
+                record.fields[13] = String.valueOf(lostProfit);
+
+                totalProfitLoss += lostProfit;
+            }
+        }
+    }
+
+    public static void deleteCountryOrdersPriority(List<SalesRecord> records, int fIndex, int fIndex2, String country) {
+        for (int lcv = 0; lcv < records.size(); lcv++) {
+            if (records.get(lcv).fields[fIndex].equalsIgnoreCase(country)) {
+                if (records.get(lcv).fields[fIndex2].equalsIgnoreCase("L")) {
+                    records.remove(lcv);
+                    lcv--;
+                }
+            }
+        }
+    }
+
 }
 /*
 Sales to Europe: 129286
@@ -180,4 +221,5 @@ Fruits profit lost in 2012: $67,345,418.37
 High priority sales shipped more than 3 days late: 115166
 Country with highest profit on Personal Care items: Iceland
 Region that bought the most Snacks: Sub-Saharan Africa
+Records of sales to African nations: 651852367
  */
