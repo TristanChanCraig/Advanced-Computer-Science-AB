@@ -7,11 +7,11 @@ import java.util.Scanner;
 
 public class Prog505bClass {
     static class Student {
-        private static int avgT1 = 0;
-        private static int avgT2 = 0;
-        private static int avgT3 = 0;
-        private static int avgT4 = 0;
-        private static int avgT5 = 0;
+        private static double avgT1 = 0;
+        private static double avgT2 = 0;
+        private static double avgT3 = 0;
+        private static double avgT4 = 0;
+        private static double avgT5 = 0;
         private static int stuCnt;
         private String first;
         private String last;
@@ -66,11 +66,11 @@ public class Prog505bClass {
         public int getT3() { return t3; }
         public int getT4() { return t4; }
         public int getT5() { return t5; }
-        public int getAvgT1() { return avgT1; }
-        public int getAvgT2() { return avgT2; }
-        public int getAvgT3() { return avgT3; }
-        public int getAvgT4() { return avgT4; }
-        public int getAvgT5() { return avgT5; }
+        public double getAvgT1() { return avgT1; }
+        public double getAvgT2() { return avgT2; }
+        public double getAvgT3() { return avgT3; }
+        public double getAvgT4() { return avgT4; }
+        public double getAvgT5() { return avgT5; }
 
     }
 
@@ -91,6 +91,13 @@ public class Prog505bClass {
                 students.add(student);
             }
 
+            int aCnt = 0;
+            int bCnt = 0;
+            int cCnt = 0;
+            int dCnt = 0;
+            int fCnt = 0;
+
+            students.get(0).calcAvgGrades();
             for (Student student : students) {
                 String first = student.getFirst();
                 String last = student.getLast();
@@ -101,14 +108,39 @@ public class Prog505bClass {
                 int t5 = student.getT5();
                 student.calcGrade();
                 String grade = student.getGrade();
+                if (grade.equalsIgnoreCase("A")) aCnt++;
+                else if (grade.equalsIgnoreCase("B")) bCnt++;
+                else if (grade.equalsIgnoreCase("C")) cCnt++;
+                else if (grade.equalsIgnoreCase("D")) dCnt++;
+                else fCnt++;
                 double avgGrade = student.avgGrade;
-                System.out.printf("%s %s\t\t%d\t%d\t%d\t%d\t%d\t\t%.1f\t%s", first, last, t1, t2, t3, t4, t5, avgGrade, grade);
+                System.out.printf("%s %s\t\t%d\t%d\t%d\t%d\t%d\t\t%.1f\t%s\n", first, last, t1, t2, t3, t4, t5, avgGrade, grade);
             }
 
+            double test1 = students.get(0).getAvgT1();
+            double test2 = students.get(0).getAvgT2();
+            double test3 = students.get(0).getAvgT3();
+            double test4 = students.get(0).getAvgT4();
+            double test5 = students.get(0).getAvgT5();
 
+            System.out.printf("Test 1: %.2f\t\t\t\tA: %s\n", test1, aCnt);
+            System.out.printf("Test 2: %.2f\t\t\t\tB: %s\n", test2, bCnt);
+            System.out.printf("Test 3: %.2f\t\t\t\tC: %s\n", test3, cCnt);
+            System.out.printf("Test 4: %.2f\t\t\t\tD: %s\n", test4, dCnt);
+            System.out.printf("Test 5: %.2f\t\t\t\tF: %s", test5, fCnt);
 
         } catch (IOException e) {
             System.out.println("Can't find data file!");
         }
     }
 }
+/*
+Sam Lilly		80	77	82	86	90		83.0	B
+Fred Biggie		70	72	88	90	93		82.6	B
+Sally Awesome		92	91	85	99	93		92.0	A
+Test 1: 80.67				A: 1
+Test 2: 80.00				B: 2
+Test 3: 85.00				C: 0
+Test 4: 91.67				D: 0
+Test 5: 92.00				F: 0
+ */
