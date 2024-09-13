@@ -52,10 +52,11 @@ public class Prog1050a {
             System.out.println("Region that bought the most Snacks: " +
                     computeMaxByField(records, 2, "Snacks", 0));
             System.out.println("Records of sales to African nations: " +
-                    computeCount(records, 0, "Sub-Saharan Africa")
-            deleteCountryOrders(records, 1, 8, "Kuwait");
+                    computeCount(records, 0, "Sub-Saharan Africa"));
+            deleteCountryOrders(records, 1, "Kuwait");
             limitCountrySales(records, 1, 8, "Uganda", 100, "Cosmetics");
-            deleteCountryOrdersPriority(records, 1, 4, "Sub-saharan Africa");
+            deleteCountryOrdersPriority(records, 1, 4, "Sub-saharan Africa", "L");
+            System.out.printf("Total profit loss: $%.2f", totalProfitLoss);
             // TODO: the rest
         }
     }
@@ -174,6 +175,7 @@ public class Prog1050a {
     public static void deleteCountryOrders(List<SalesRecord> records, int fIndex, String country) {
         for (int lcv = 0; lcv < records.size(); lcv++) {
             if (records.get(lcv).fields[fIndex].equalsIgnoreCase(country)) {
+                totalProfitLoss += Double.parseDouble(records.get(lcv).fields[13]);
                 records.remove(lcv);
                 lcv--;
             }
@@ -200,10 +202,11 @@ public class Prog1050a {
         }
     }
 
-    public static void deleteCountryOrdersPriority(List<SalesRecord> records, int fIndex, int fIndex2, String country) {
+    public static void deleteCountryOrdersPriority(List<SalesRecord> records, int fIndex, int fIndex2, String country, String priority) {
         for (int lcv = 0; lcv < records.size(); lcv++) {
             if (records.get(lcv).fields[fIndex].equalsIgnoreCase(country)) {
-                if (records.get(lcv).fields[fIndex2].equalsIgnoreCase("L")) {
+                if (records.get(lcv).fields[fIndex2].equalsIgnoreCase(priority)) {
+                    totalProfitLoss += Double.parseDouble(records.get(lcv).fields[13]);
                     records.remove(lcv);
                     lcv--;
                 }
@@ -221,5 +224,6 @@ Fruits profit lost in 2012: $67,345,418.37
 High priority sales shipped more than 3 days late: 115166
 Country with highest profit on Personal Care items: Iceland
 Region that bought the most Snacks: Sub-Saharan Africa
-Records of sales to African nations: 651852367
+Records of sales to African nations: 130422
+Total profit loss: $2104769573.92
  */
