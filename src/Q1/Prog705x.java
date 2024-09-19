@@ -18,7 +18,7 @@ public class Prog705x {
             codes.add(scannerOne.nextLine());
         }
 
-        while (scannerOne.hasNextLine()) {
+        while (scannerTwo.hasNextLine()) {
             String l = scannerTwo.nextLine();
             String line[] = l.split(" ");
             lines.add(line);
