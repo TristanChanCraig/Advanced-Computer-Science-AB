@@ -12,15 +12,20 @@ public class DynamicArrayLab {
         System.out.println("Dynamic Array add: " + (end-start)/1e6 + " ms"); // ns to ms
 
         start = System.nanoTime();
-        for (int i = 0; i < 100_000; i++) dArray.add(i);
+        for (int i = 0; i < 100_000; i++) dArray.remove(i);
         end = System.nanoTime();
-        System.out.println("Dynamic Array remove: " + (end-start)/1e6 + " ms"); // ns to ms
+        System.out.println("Dynamic Array remove: " + (end-start)/1e6 + " ms");
 
         start = System.nanoTime();
         dArray.sort();
         end = System.nanoTime();
-        System.out.println("Dynamic Array sort: " + (end-start)/1e6 + " ms"); // ns to ms
+        System.out.println("Dynamic Array sort: " + (end-start)/1e6 + " ms");
 
         // TODO: check against ArrayList
+        // sort with "arrayList.sort(null);"
+        start = System.nanoTime();
+
+        end = System.nanoTime();
+        System.out.println("Dynamic Array to ArrayList: " + (end-start)/1e6 + " ms");
     }
 }
