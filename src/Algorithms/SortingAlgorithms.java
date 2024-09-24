@@ -21,36 +21,29 @@ public class SortingAlgorithms {
             }
         } while (bool);
     }
-
     public static <T extends Comparable<T>> void insertionSort(T[] arr) {
-        T insert;
-        int cnt;
-        boolean bool;
-        for (int lcv = 1; lcv < arr.length - 1; lcv++) {
-            insert = arr[lcv];
-            cnt = lcv - 1;
-            bool = true;
-            while ((cnt >= 0) && bool) {
-                if (insert.compareTo(arr[cnt]) < 0) {
-                    arr[cnt + 1]= arr[cnt];
-                    cnt--;
-                    if (cnt == -1) arr[0] = insert;
-                } else {
-                    bool = false;
-                    arr[cnt + 1] = insert;
-                }
+        insertionSort(arr, arr.length);
+    }
+    public static <T extends Comparable<T>> void insertionSort(T[] arr, int n) {
+        for (int i = 1; i < n; i++) {
+            T key = arr[i];
+            int j = i - 1;
+            while (j >= 0 && arr[j].compareTo(key) > 0) {
+                arr[j + 1] = arr[j];
+                j--;
             }
+            arr[j + 1] = key;
         }
     }
 
     public static <T extends Comparable<T>> void selectionSort(T[] arr) {
         T min;
         int minIndex;
-        for (int lcv = 0; lcv < arr.length-1; lcv++) {
+        for (int lcv = 0; lcv < arr.length; ++lcv) {
             min = arr[lcv];
             minIndex = lcv;
-            for (int lcv2 = lcv + 1; lcv2 < arr.length-1; ++lcv2) {
-                if (arr[lcv].compareTo(min) > 0) {
+            for (int lcv2 = lcv + 1; lcv2 < arr.length; ++lcv2) {
+                if (arr[lcv2].compareTo(min) <    0) {
                     min = arr[lcv2];
                     minIndex = lcv2;
                 }
@@ -58,4 +51,6 @@ public class SortingAlgorithms {
             swap(arr, lcv, minIndex);
         }
     }
+
+    public static <T extends Comparable<T>> void shellSort(T[] arr) {}
 }

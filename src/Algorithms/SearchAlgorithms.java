@@ -15,7 +15,7 @@ public class SearchAlgorithms {
         while (low <= high) {
             int mid = low + (high - low) / 2;
             if (arr[mid] == target) return mid;
-            if (arr[mid].compareTo(target) > 0) low = mid + 1;
+            if (arr[mid].compareTo(target) < 0) low = mid + 1;
             else high = mid - 1;
         }
         return -1;
