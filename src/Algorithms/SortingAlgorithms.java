@@ -77,4 +77,25 @@ public class SortingAlgorithms {
             gap = gap / 2;
         }
     }
+
+    public static <T extends Comparable<T>> void quickSort(T[] arr, int low, int high) {
+        if (low < high) {
+            int pivot = partition(arr, low, high);
+            quickSort(arr, low, pivot - 1);
+            quickSort(arr, pivot + 1, high);
+        }
+    }
+
+    public static <T extends Comparable<T>> int partition(T[] arr, int low, int high) {
+        T pivot = arr[high];
+        int i = low - 1;
+        for (int j = low; j < high - 1; j++) {
+            if (arr[j].compareTo(pivot) >= 0) {
+                i++;
+                swap(arr, i, j);
+            }
+        }
+        swap(arr, i + 1, high);
+        return i + 1;
+    }
 }
