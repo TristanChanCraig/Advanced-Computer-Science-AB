@@ -86,7 +86,7 @@ public class SortingAlgorithms {
         }
     }
 
-    public static <T extends Comparable<T>> int partition(T[] arr, int low, int high) {
+    private static <T extends Comparable<T>> int partition(T[] arr, int low, int high) {
         T pivot = arr[high];
         int i = low - 1;
         for (int j = low; j < high - 1; j++) {

@@ -15,7 +15,9 @@ public class IntLinkedList implements Iterable<Integer> {
 
     private Node head;
 
-    public IntLinkedList() { head = null; }
+    public IntLinkedList() {
+        head = null;
+    }
 
     public void addFront(int data) {
         var newNode = new Node(data);
@@ -35,7 +37,7 @@ public class IntLinkedList implements Iterable<Integer> {
         current.next = newNode;
     }
 
-    public void print() {
+    public void printList() {
         Node current = head;
         while (current != null) {
             System.out.print(current.data + " ");
@@ -48,7 +50,9 @@ public class IntLinkedList implements Iterable<Integer> {
         return new Iterator<Integer>() {
             private Node current = head;
 
-            public boolean hasNext() { return current != null; }
+            public boolean hasNext() {
+                return current != null;
+            }
 
             public Integer next() {
                 int data = current.data;
@@ -68,7 +72,28 @@ public class IntLinkedList implements Iterable<Integer> {
         return cnt;
     }
 
-    public boolean isEmpty() { return head == null; }
+    public void add(int n, int pos) {
+        // TODO:
+        int cnt = 0;
+        Node temp = head;
+        int num = 0;
+        while (temp.next != null) {
+            if (cnt == pos) {
+                int t = temp.data;
+                temp.data = n;
+                while (temp.next.next != null) {
+                }
+            }
+            temp = temp.next;
+            cnt++;
+        }
+        return num;
+        (int)(Math.random()*200 + 1)
+    }
+
+    public boolean isEmpty() {
+        return head == null;
+    }
 
     public int getFirst() {
         return head.data;
@@ -82,7 +107,7 @@ public class IntLinkedList implements Iterable<Integer> {
         return temp.data;
     }
 
-    public int getSpot(int pos) {
+    public int getByIndex(int pos) {
         if (pos < 0 || pos > getCount()) return -1;
         int cnt = 0;
         Node temp = head;
@@ -114,7 +139,7 @@ public class IntLinkedList implements Iterable<Integer> {
     public int countLess10() {
         int cnt = 0;
         for (int lcv = 0; lcv < getCount(); lcv++)
-            if (getSpot(lcv) < 10)
+            if (getByIndex(lcv) < 10)
                 cnt++;
         return cnt;
     }
@@ -161,33 +186,33 @@ public class IntLinkedList implements Iterable<Integer> {
     public double avg() {
         double avg = 0;
         for (int lcv = 0; lcv < getCount(); lcv++) {
-            avg += getSpot(lcv);
+            avg += getByIndex(lcv);
         }
         return avg / getCount();
     }
 
     public int min() {
-        int min = getSpot(0);
+        int min = getByIndex(0);
         for (int lcv = 1; lcv < getCount(); lcv++) {
-            if (getSpot(lcv) < min) min = getSpot(lcv);
+            if (getByIndex(lcv) < min) min = getByIndex(lcv);
         }
         return min;
     }
 
     public int max() {
-        int max = getSpot(0);
+        int max = getByIndex(0);
         for (int lcv = 1; lcv < getCount(); lcv++) {
-            if (getSpot(lcv) > max) max = getSpot(lcv);
+            if (getByIndex(lcv) > max) max = getByIndex(lcv);
         }
         return max;
     }
 
     public int indexOfMax() {
-        int max = getSpot(1);
+        int max = getByIndex(1);
         int index = 0;
         for (int lcv = 1; lcv < getCount(); lcv++) {
-            if (getSpot(lcv) > max) {
-                max = getSpot(lcv);
+            if (getByIndex(lcv) > max) {
+                max = getByIndex(lcv);
                 index = lcv;
             }
         }
@@ -195,18 +220,84 @@ public class IntLinkedList implements Iterable<Integer> {
     }
 
     public int lastIndexOfMax() {
-        int max = getSpot(1);
+        int max = getByIndex(1);
         int index = 0;
         for (int lcv = 1; lcv < getCount(); lcv++) {
-            if (getSpot(lcv) > max) {
-                max = getSpot(lcv);
+            if (getByIndex(lcv) > max) {
+                max = getByIndex(lcv);
                 index = lcv;
-            } else if (max == getSpot(lcv)) index = lcv;
+            } else if (max == getByIndex(lcv)) index = lcv;
         }
         return index;
     }
 
-    public void sort() {
-        for ()
+    private int partition(int low, int high) {
+        int pivot = getByIndex(high);
+        int i = low - 1;
+        for (int j = low; j < high - 1; j++) {
+            if (getByIndex(j) > pivot) {
+                i++;
+                swap(i, j);
+            }
+        }
+        swap(i + 1, high);
+        return i + 1;
+    }
+
+    public void quickSort(int low, int high) {
+        if (low < high) {
+            int pivot = partition(low, high);
+            quickSort(low, pivot - 1);
+            quickSort(pivot + 1, high);
+        }
+    }
+
+    public void swap(int i, int j) {
+        int temp = getByIndex(i);
+        replaceSpot(i, getByIndex(j));
+        replaceSpot(j, temp);
+    }
+
+    public void replaceSpot(int pos, int num) {
+        int cnt = 0;
+        Node temp = head;
+        while (temp.next != null) {
+            if (cnt == pos) {
+                temp.data = num;
+                break;
+            }
+            temp = temp.next;
+            cnt++;
+        }
+    }
+
+    public int lose58() {
+        int numCnt = 0;
+        Node temp = head;
+        while (temp.next != null) {
+            if (temp.data == 58) numCnt++;
+            temp = temp.next;
+        }
+        return numCnt;
+    }
+
+    public int getEvenCount() {
+        int evenCnt = 0;
+        Node temp = head;
+        while (temp.next != null) {
+            if (temp.data % 2 == 0) evenCnt++;
+            temp = temp.next;
+        }
+        return evenCnt;
+    }
+
+    public void removeOdds() {
+        Node temp = head;
+        int cnt = 0;
+        while (temp.next != null) {
+            if (temp.data % 2 == 1) removeIndex(cnt);
+            temp = temp.next;
+            cnt++;
+        }
     }
 }
