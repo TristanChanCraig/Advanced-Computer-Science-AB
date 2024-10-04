@@ -73,22 +73,24 @@ public class IntLinkedList implements Iterable<Integer> {
     }
 
     public void add(int n, int pos) {
-        // TODO:
         int cnt = 0;
         Node temp = head;
-        int num = 0;
-        while (temp.next != null) {
+        boolean bool = false;
+        while (temp.next != null || bool) {
             if (cnt == pos) {
-                int t = temp.data;
-                temp.data = n;
-                while (temp.next.next != null) {
+                bool = true;
+                Node t = temp;
+                temp = new Node(n);
+                temp.next = t;
+                while (temp.next != null) {
+                    temp = temp.next;
                 }
+                bool = false;
+                break;
             }
             temp = temp.next;
             cnt++;
         }
-        return num;
-        (int)(Math.random()*200 + 1)
     }
 
     public boolean isEmpty() {
@@ -169,7 +171,6 @@ public class IntLinkedList implements Iterable<Integer> {
             if (temp.data == n) there = true;
             temp = temp.next;
         }
-        print();
         return there;
     }
 
