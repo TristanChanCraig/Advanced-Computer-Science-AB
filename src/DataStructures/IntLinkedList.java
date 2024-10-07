@@ -176,8 +176,9 @@ public class IntLinkedList implements Iterable<Integer> {
 
     public IntLinkedList getReverse() {
         IntLinkedList list = new IntLinkedList();
+        list.head = head;
         Node temp = head;
-        for (int lcv = 0; lcv < getCount(); lcv++) {
+        while (temp.next != null) {
             list.addFront(temp.data);
             temp = temp.next;
         }
@@ -300,5 +301,15 @@ public class IntLinkedList implements Iterable<Integer> {
             temp = temp.next;
             cnt++;
         }
+    }
+
+    public int getSize() {
+        int cnt = 0;
+        Node temp = head;
+        while (temp.next != null) {
+            cnt++;
+            temp = temp.next;
+        }
+        return cnt;
     }
 }
