@@ -19,7 +19,7 @@ public class BigLinkedList {
         list.addLast(2);
         list.printList();
         System.out.println(list.getCount());
-        list.add(3, 2); // its broke
+        list.add(3, 2); //broke
         list.printList();
         System.out.println(list.isEmpty());
         System.out.println(list.getFirst());
@@ -33,6 +33,7 @@ public class BigLinkedList {
         list.removeIndex(2);
         list.printList();
         System.out.println(list.contains(86));
+        System.out.println("hi");
         list.getReverse().printList();
         System.out.println(list.avg());
         System.out.println(list.min());

@@ -1,5 +1,4 @@
 package DataStructures;
-
 import java.util.Iterator;
 
 public class IntLinkedList implements Iterable<Integer> {
@@ -110,27 +109,24 @@ public class IntLinkedList implements Iterable<Integer> {
     }
 
     public int getByIndex(int pos) {
-        if (pos < 0 || pos > getCount()) return -1;
-        int cnt = 0;
+        if (pos < 0 || pos > getCount() || head == null) return -1;
         Node temp = head;
-        int num = 0;
+        int cnt = 0;
+        if (cnt == pos) return temp.data;
         while (temp.next != null) {
-            if (cnt == pos) num = temp.data;
-            temp = temp.next;
             cnt++;
+            temp = temp.next;
+            if (cnt == pos) return temp.data;
         }
-        return num;
+        return -1;
     }
 
     public void removeFirst() {
-        Node temp = head;
-        while (temp.next != null) {
-            head = temp.next;
-            temp = head;
-        }
+        head = head.next;
     }
 
     public void removeLast() {
+        if (head == null) return;
         Node temp = head;
         while (temp.next != null) {
             temp = temp.next;
@@ -147,10 +143,13 @@ public class IntLinkedList implements Iterable<Integer> {
     }
 
     public void removeIndex(int num) {
-        int cnt = 0;
+        int cnt = 1;
         Node temp = head;
         while (temp.next != null) {
-            if (cnt == num) temp = null;
+            if (getByIndex(cnt) == num) {
+                temp = temp.next.next;
+                break;
+            }
             temp = temp.next;
             cnt++;
         }
@@ -176,11 +175,9 @@ public class IntLinkedList implements Iterable<Integer> {
 
     public IntLinkedList getReverse() {
         IntLinkedList list = new IntLinkedList();
-        list.head = head;
-        Node temp = head;
-        while (temp.next != null) {
-            list.addFront(temp.data);
-            temp = temp.next;
+        System.out.println(getSize());
+        for (int i = 0; i <= getSize(); i++) {
+            list.addFront(getByIndex(i));
         }
         return list;
     }
@@ -295,11 +292,9 @@ public class IntLinkedList implements Iterable<Integer> {
 
     public void removeOdds() {
         Node temp = head;
-        int cnt = 0;
         while (temp.next != null) {
-            if (temp.data % 2 == 1) removeIndex(cnt);
+            if (temp.next.data % 2 == 1) temp.next = temp.next.next;
             temp = temp.next;
-            cnt++;
         }
     }
 
