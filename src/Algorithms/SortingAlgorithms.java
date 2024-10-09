@@ -52,7 +52,7 @@ public class SortingAlgorithms {
             min = arr[lcv];
             minIndex = lcv;
             for (int lcv2 = lcv + 1; lcv2 < arr.length; ++lcv2) {
-                if (arr[lcv2].compareTo(min) <    0) {
+                if (arr[lcv2].compareTo(min) < 0) {
                     min = arr[lcv2];
                     minIndex = lcv2;
                 }

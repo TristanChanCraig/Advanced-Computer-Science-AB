@@ -33,17 +33,25 @@ public class BigLinkedList {
         list.removeIndex(2);
         list.printList();
         System.out.println(list.contains(86));
-        System.out.println("hi");
         list.getReverse().printList();
         System.out.println(list.avg());
         System.out.println(list.min());
         System.out.println(list.max());
         System.out.println(list.indexOfMax());
         System.out.println(list.lastIndexOfMax());
-        list.quickSort(0, list.getSize());
+        System.out.println("hii");
         list.printList();
+        System.out.println(list.getByIndex(200));
+        list.selectionSort();
+        list.printList();
+        System.out.println("hi");
+        list.printList();
+        System.out.println("hi");
         System.out.println(list.lose58());
+        System.out.println("hi");
         System.out.println(list.getEvenCount());
+        System.out.println("hi");
+        list.printList();
         list.removeOdds();
         list.printList();
 

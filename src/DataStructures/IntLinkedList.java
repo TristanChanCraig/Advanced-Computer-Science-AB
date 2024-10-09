@@ -230,31 +230,49 @@ public class IntLinkedList implements Iterable<Integer> {
         return index;
     }
 
-    private int partition(int low, int high) {
-        int pivot = getByIndex(high);
-        int i = low - 1;
-        for (int j = low; j < high - 1; j++) {
-            if (getByIndex(j) > pivot) {
-                i++;
-                swap(i, j);
-            }
-        }
-        swap(i + 1, high);
-        return i + 1;
-    }
-
-    public void quickSort(int low, int high) {
-        if (low < high) {
-            int pivot = partition(low, high);
-            quickSort(low, pivot - 1);
-            quickSort(pivot + 1, high);
-        }
-    }
-
+//    private int partition(int low, int high) {
+//        int pivot = getByIndex(high);
+//        int i = low - 1;
+//        for (int j = low; j < high - 1; j++) {
+//            if (getByIndex(j) <= pivot) {
+//                i++;
+//                swap(i, j);
+//            }
+//        }
+//        swap(i + 1, high);
+//        return i + 1;
+//    }
+//
+//    public void quickSort(int low, int high) {
+//        if (low < high) {
+//            int pivot = partition(low, high);
+//            quickSort(low, pivot - 1);
+//            quickSort(pivot + 1, high);
+//        }
+//    }
+//
+//
+//
     public void swap(int i, int j) {
         int temp = getByIndex(i);
         replaceSpot(i, getByIndex(j));
         replaceSpot(j, temp);
+    }
+
+    public void selectionSort() {
+        int min;
+        int minIndex;
+        for (int lcv = 0; lcv < getSize(); ++lcv) {
+            min = getByIndex(lcv);
+            minIndex = lcv;
+            for (int lcv2 = lcv + 1; lcv2 < getSize(); ++lcv2) {
+                if (getByIndex(lcv2) < min) {
+                    min = getByIndex(lcv2);
+                    minIndex = lcv2;
+                }
+            }
+            swap(lcv, minIndex);
+        }
     }
 
     public void replaceSpot(int pos, int num) {
@@ -273,9 +291,19 @@ public class IntLinkedList implements Iterable<Integer> {
     public int lose58() {
         int numCnt = 0;
         Node temp = head;
+        while (head == temp) {
+            if (temp.data == 58) {
+                numCnt++;
+                temp = temp.next;
+                head = temp;
+            } else break;
+        }
         while (temp.next != null) {
-            if (temp.data == 58) numCnt++;
             temp = temp.next;
+            if (temp.data == 58) {
+                numCnt++;
+                temp.next = temp.next.next;
+            }
         }
         return numCnt;
     }
@@ -292,8 +320,17 @@ public class IntLinkedList implements Iterable<Integer> {
 
     public void removeOdds() {
         Node temp = head;
+        Node temp2 = null;
+        while (head == temp) {
+            if (temp.data % 2 == 1) {
+                temp = temp.next;
+                head = temp;
+            } else break;
+        }
         while (temp.next != null) {
-            if (temp.next.data % 2 == 1) temp.next = temp.next.next;
+            if (temp.next.data % 2 == 1) {
+                temp.next = temp.next.next;
+            }
             temp = temp.next;
         }
     }
