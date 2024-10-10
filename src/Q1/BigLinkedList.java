@@ -39,20 +39,17 @@ public class BigLinkedList {
         System.out.println(list.max());
         System.out.println(list.indexOfMax());
         System.out.println(list.lastIndexOfMax());
-        System.out.println("hii");
         list.printList();
         System.out.println(list.getByIndex(200));
         list.selectionSort();
         list.printList();
-        System.out.println("hi");
         list.printList();
-        System.out.println("hi");
         System.out.println(list.lose58());
-        System.out.println("hi");
         System.out.println(list.getEvenCount());
-        System.out.println("hi");
         list.printList();
         list.removeOdds();
+        list.printList();
+        list.clear();
         list.printList();
 
 
