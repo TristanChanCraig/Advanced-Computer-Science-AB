@@ -74,22 +74,21 @@ public class IntLinkedList implements Iterable<Integer> {
     public void add(int n, int pos) {
         int cnt = 0;
         Node temp = head;
-        boolean bool = false;
-        while (temp.next != null || bool) {
-            if (cnt == pos) {
-                bool = true;
-                Node t = temp;
-                temp = new Node(n);
-                temp.next = t;
-                while (temp.next != null) {
-                    temp = temp.next;
-                }
-                bool = false;
-                break;
-            }
-            temp = temp.next;
-            cnt++;
+        Node t = new Node(n);
+
+        if (head == null) {
+            head = new Node(n);
+            return;
         }
+        pos--;
+        while (temp.next != null && pos != 0) {
+            temp = temp.next;
+            pos--;
+        }
+        var current = temp;
+        temp = temp.next;
+        current.next = t;
+        t.next = temp;
     }
 
     public boolean isEmpty() {
@@ -156,11 +155,7 @@ public class IntLinkedList implements Iterable<Integer> {
     }
 
     public void clear() {
-        Node temp = head;
-        while (temp.next != null) {
-            temp = null;
-            temp = temp.next;
-        }
+        head = null;
     }
 
     public boolean contains(int n) {
@@ -175,7 +170,6 @@ public class IntLinkedList implements Iterable<Integer> {
 
     public IntLinkedList getReverse() {
         IntLinkedList list = new IntLinkedList();
-        System.out.println(getSize());
         for (int i = 0; i <= getSize(); i++) {
             list.addFront(getByIndex(i));
         }
@@ -260,14 +254,11 @@ public class IntLinkedList implements Iterable<Integer> {
     }
 
     public void selectionSort() {
-        int min;
         int minIndex;
         for (int lcv = 0; lcv < getSize(); ++lcv) {
-            min = getByIndex(lcv);
             minIndex = lcv;
             for (int lcv2 = lcv + 1; lcv2 < getSize(); ++lcv2) {
-                if (getByIndex(lcv2) < min) {
-                    min = getByIndex(lcv2);
+                if (getByIndex(lcv2) < getByIndex(minIndex)) {
                     minIndex = lcv2;
                 }
             }
@@ -300,7 +291,7 @@ public class IntLinkedList implements Iterable<Integer> {
         }
         while (temp.next != null) {
             temp = temp.next;
-            if (temp.data == 58) {
+            if (temp.next.data == 58) {
                 numCnt++;
                 temp.next = temp.next.next;
             }
@@ -320,18 +311,16 @@ public class IntLinkedList implements Iterable<Integer> {
 
     public void removeOdds() {
         Node temp = head;
-        Node temp2 = null;
         while (head == temp) {
             if (temp.data % 2 == 1) {
                 temp = temp.next;
                 head = temp;
-            } else break;
+            } else temp = temp.next;
         }
         while (temp.next != null) {
             if (temp.next.data % 2 == 1) {
                 temp.next = temp.next.next;
-            }
-            temp = temp.next;
+            } else temp = temp.next;
         }
     }
 
