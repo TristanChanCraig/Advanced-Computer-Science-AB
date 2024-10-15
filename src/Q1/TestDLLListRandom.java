@@ -5,7 +5,7 @@ public class TestDLLListRandom {
     public static void main(String[] args) {
         var list = new DoublyLinkedList<Integer>();
         for (int i = 0; i < 20; i++)
-            list.add((int)(Math.random() * 100)); // TODO: change to addSorted
+            list.addSorted((int)(Math.random() * 100)); // TODO: change to addSorted
         list.print();
         list.printReverse();
 

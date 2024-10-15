@@ -48,17 +48,63 @@ public class DoublyLinkedList<T extends Comparable<T>> {
 
     public void insert(int index, T element) {
         if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
-        Node current = head;
-        for (int i = 0; i < index - 1; i++) current = current.next;
-        var temp = new Node(element);
-        temp.next = current.next.next;
-        temp.prev = current;
-        current.next = temp;
-        size++;
+        if (index == 0 && head == null) {
+            head = new Node(element);
+            size++;
+        } else {
+            Node current = head;
+            for (int i = 0; i < index - 1; i++) current = current.next;
+            var temp = new Node(element);
+            temp.next = current.next.next;
+            temp.prev = current;
+            current.next = temp;
+            size++;
+        }
     }
 
     public void addSorted(T element) {
         // TODO: good luck :)
+        var temp = new Node(element);
+        if (head == null) {
+            head = temp;
+            tail = temp;
+            size++;
+        } else if (size == 1) {
+            if (temp.compareTo(head) >= 0) {
+                head.next = temp;
+                temp.prev = head;
+                tail = temp;
+            } else {
+                head.prev = temp;
+                temp.next = head;
+                head = temp;
+            }
+            size++;
+        } else {
+            for (Node current = head; current != null; current = current.next) {
+                if (temp.compareTo(head) <= 0) {
+                    head.prev = temp;
+                    temp.next = head;
+                    head = temp;
+                    break;
+                }
+                if (temp.compareTo(current) <= 0) {
+                    Node prevNode = current.prev;
+                    prevNode.next = temp;
+                    temp.prev = prevNode;
+                    current.prev = temp;
+                    temp.next = current;
+                    break;
+                }
+                if (current.next == null) {
+                    tail.next = temp;
+                    temp.prev = tail;
+                    tail = temp;
+                    break;
+                }
+            }
+            size++;
+        }
     }
 
     public void remove(int index) {
