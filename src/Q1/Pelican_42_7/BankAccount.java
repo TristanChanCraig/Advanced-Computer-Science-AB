@@ -8,4 +8,7 @@ public class BankAccount {
         name = nm;
         balance = amt;
     }
+
+    public void deposit(double dp) { balance += dp; }
+    public void withdraw(double wd) { balance -= wd; }
 }
