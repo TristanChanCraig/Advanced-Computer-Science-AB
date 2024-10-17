@@ -122,6 +122,17 @@ public class DoublyLinkedList<T extends Comparable<T>> {
         size--;
     }
 
+    public void removeWord(String word) {
+        Node current = head;
+        while (current != null) {
+            if (current.data.equals(word)) {
+                current.prev.next = current.next;
+                current.next.prev = current.prev;
+            }
+        }
+        size--;
+    }
+
     public T get(int index) {
         if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
         Node current = head;

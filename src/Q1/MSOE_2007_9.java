@@ -18,7 +18,8 @@ public class MSOE_2007_9 {
             file.close();
 
             for (int lcv = 0; lcv < arr.length; lcv++) {
-                System.out.print(lcv + " - " + lcv+1 + " ");
+                int temp = lcv*2+1;
+                System.out.print(lcv*2 + " - " + temp + " ");
                 for (int lcv2 = 0; lcv2 < arr[lcv]; lcv2++) {
                     System.out.print("*");
                 }
