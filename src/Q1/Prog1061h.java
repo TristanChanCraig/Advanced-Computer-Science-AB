@@ -18,7 +18,7 @@ public class Prog1061h {
                         list.addSorted(line.substring(1));
                         break;
                     case "D":
-                        list.removeWord(line.substring(1)); // TODO: FIX
+                        list.removeWord(line.substring(1));
                         break;
                     case "P":
                         list.print();
@@ -34,3 +34,8 @@ public class Prog1061h {
         }
     }
 }
+/*
+CONST IF LONG
+
+BREAK CONTINUE SHORT WHILE
+ */

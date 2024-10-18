@@ -125,10 +125,23 @@ public class DoublyLinkedList<T extends Comparable<T>> {
     public void removeWord(String word) {
         Node current = head;
         while (current != null) {
+            if (current == head) {
+                if (current.data.equals(word)) {
+                    head = null;
+                    break;
+                }
+            }
+            if (current.next == null) {
+                if (current.data.equals(word)) {
+                    current.prev.next = null;
+                    break;
+                }
+            }
             if (current.data.equals(word)) {
                 current.prev.next = current.next;
                 current.next.prev = current.prev;
             }
+            current = current.next;
         }
         size--;
     }
