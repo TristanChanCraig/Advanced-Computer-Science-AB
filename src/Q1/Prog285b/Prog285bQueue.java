@@ -22,7 +22,7 @@ public class Prog285bQueue {
             }
             file.close();
 
-            System.out.println("Number\tCode\tSales\tCommission");
+            System.out.println("Number\tCode\tSales\t\tCommission");
             while (!queue.isEmpty()) {
                 var fred = queue.dequeue();
                 System.out.println(fred);
