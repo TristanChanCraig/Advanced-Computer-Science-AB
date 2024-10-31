@@ -31,9 +31,12 @@ public class Prog1071hStackFromQueue {
             return value;
         }
 
-        public void setValue(int v) { value = v; }
+        public void buy(int amt, double cost) {
+            quantity -= amt;
+            value = cost;
+        }
 
-        public void sell(int amt) { quantity -= amt; }
+        public void sell(int amt) { quantity += amt; }
 
         @Override
         public int compareTo(Cl1071h o) {
@@ -57,25 +60,22 @@ public class Prog1071hStackFromQueue {
             System.out.println();
 
             System.out.println("Ending Merchandise Inventory:");
+            QueueStack<Cl1071h> temp = new QueueStack<>();
             while (file2.hasNext()) {
                 String c = file2.next();
-                var temp = qs;
+                int code = file2.nextInt();
+                int quantity = file2.nextInt();
+                while (code != qs.peek().getCode()) temp.push(qs.pop());
+                Cl1071h jon = qs.pop();
                 if (c.equalsIgnoreCase("B")) {
-                    int code = file2.nextInt();
-                    int quantity = file2.nextInt();
                     double cost = file2.nextDouble();
-                    while (code != temp.peek().getCode()) temp.pop();
-                    Cl1071h jon = temp.pop();
+                    jon.buy(quantity, cost);
                     jon.sell(quantity);
-                    System.out.printf("%d\t\t%d\t\t%.2f\n", jon.getCode(), jon.getQuantity(), jon.getValue());
-                } else {
-                    int code = file2.nextInt();
-                    int quantity = file2.nextInt();
-                    while (code != temp.peek().getCode()) temp.pop();
-                    Cl1071h jon = temp.pop();
+                } else
                     jon.sell(quantity);
-                    System.out.printf("%d\t\t%d\t\t%.2f\n", jon.getCode(), jon.getQuantity(), jon.getValue());
-                }
+                temp.push(jon);
+                while (!qs.isEmpty()) temp.push(qs.pop());
+                while (!temp.isEmpty()) qs.push(temp.pop());
             }
             file2.close();
 
