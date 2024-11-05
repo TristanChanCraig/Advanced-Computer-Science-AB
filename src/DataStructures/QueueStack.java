@@ -8,10 +8,9 @@ public class QueueStack<T extends Comparable<T>> {
     public void push(T element) { stack.enqueue(element); }
     public T pop()              {
         var temp = new Queue<T>();
-        while () temp.enqueue(stack.dequeue());
-        return temp;
+        while (true) temp.enqueue(stack.dequeue());
     }
     public T peek()             { return stack.peek(); }
     public boolean isEmpty()    { return stack.isEmpty(); }
 }
-// First-In Last-Out or Last-In First-Out
+// First-In Last-Out
