@@ -24,6 +24,6 @@ public class DequeLab {
             deque.dequeueFront();
         System.out.println("New size: " + deque.size());
         System.out.println(deque.peekFront());
-        System.out.println(deque.peekRear();
+        System.out.println(deque.peekRear());
     }
 }
