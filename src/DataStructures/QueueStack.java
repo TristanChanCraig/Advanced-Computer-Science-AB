@@ -7,23 +7,19 @@ public class QueueStack<T extends Comparable<T>> {
 
     public QueueStack()    { stack = new Queue<>(); }
 
-    public void push(T element) { stack.enqueue(element); }
+    public void push(T element) {
+        stack.enqueue(element);
+        for (int i = 1 ; i < stack.size() ; i++) stack.enqueue(stack.dequeue());
+    }
     public T pop() {
-        var temp = new ArrayList<T>();
-        while (!stack.isEmpty()) temp.add(stack.dequeue());
-        var popped = temp.remove(temp.size()-1);
-        for (int lcv = temp.size()-1; lcv >= 0; lcv--) stack.enqueue(temp.remove(lcv));
-        return popped;
+        return stack.dequeue();
     }
     public T peek() {
-        var temp = new ArrayList<T>();
-        while (!stack.isEmpty()) temp.add(stack.dequeue());
-        var popped = temp.remove(temp.size()-1);
-        for (int lcv = temp.size()-1; lcv > 0; lcv--) stack.enqueue(temp.remove(lcv));
-        stack.enqueue(popped);
-        return popped;
+        return stack.peek();
     }
     public boolean isEmpty()    { return stack.isEmpty(); }
+
+    public int size() {return stack.size();}
 }
 // First-In Last-Out
 
@@ -49,4 +45,20 @@ var temp = new Queue<T>();
         stack = temp2;
 
         return removed;
+ */
+/*
+public T pop() {
+        var temp = new ArrayList<T>();
+        while (!stack.isEmpty()) temp.add(stack.dequeue());
+        var popped = temp.remove(temp.size()-1);
+        for (int lcv = temp.size()-1; lcv >= 0; lcv--) stack.enqueue(temp.remove(lcv));
+        return popped;
+    }
+    public T peek() {
+        var temp = new ArrayList<T>();
+        while (!stack.isEmpty()) temp.add(stack.dequeue());
+        var peeked = temp.get(temp.size()-1);
+        for (int lcv = temp.size()-1; lcv > 0; lcv--) stack.enqueue(temp.remove(lcv));
+        return peeked;
+    }
  */

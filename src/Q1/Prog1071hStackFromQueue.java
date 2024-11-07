@@ -73,19 +73,56 @@ public class Prog1071hStackFromQueue {
                     jon.sell(quantity);
                 } else
                     jon.sell(quantity);
+                System.out.printf("%d\t\t%d\t\t%.2f\n", jon.getCode(), jon.getQuantity(), jon.getValue());
                 temp.push(jon);
                 while (!qs.isEmpty()) temp.push(qs.pop());
                 while (!temp.isEmpty()) qs.push(temp.pop());
             }
             file2.close();
 
-            for (Cl1071h die = qs.pop(); !qs.isEmpty();) {
-                System.out.printf("%d\t\t%d\t\t%.2f\n", die.getCode(), die.getQuantity(), die.getValue());
-                die = qs.pop();
-            }
-
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
 }
+/*
+Merchandise Inventory:
+1		50		1298.00
+2		50		107.50
+3		100		248.85
+4		5000		1.07
+5		20		489.75
+6		5		586.24
+7		30		84.23
+8		600		24.73
+9		1500		19.99
+10		15		238.99
+
+Ending Merchandise Inventory:
+5		30		489.75
+10		21		238.99
+10		21		250.00
+5		38		489.75
+5		38		510.25
+1		80		1298.00
+9		2000		19.99
+3		128		248.85
+2		70		107.50
+1		80		1305.75
+1		110		1305.75
+6		5		600.00
+6		11		600.00
+2		100		107.50
+3		128		275.55
+3		138		275.55
+1		110		1325.00
+1		110		1355.00
+1		113		1355.00
+9		2000		21.25
+9		2140		21.25
+2		100		111.25
+2		108		111.25
+7		30		87.50
+4		5000		1.10
+1		126		1355.00
+ */
