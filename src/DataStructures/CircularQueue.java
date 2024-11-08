@@ -1,11 +1,18 @@
 package DataStructures;
 
-public class CircularQueue<T extends Comparable<T>> extends Queue<T> {
-    private T[] buffer;
-    private int head;
-    private int tail;
-    private int size;
-    private int capacity;
+@SuppressWarnings("unchecked")
+public class CircularQueue<T extends Comparable<T>> {
+    protected T[] buffer;
+    protected int head;
+    protected int tail;
+    protected int size;
+    protected int capacity;
+
+    public CircularQueue(int c) {
+        capacity = c;
+        buffer = (T[]) new Comparable[capacity];
+        head = tail = size = 0;
+    }
 
     public void enqueue(T element) {
         if (isFull()) System.out.print("Queue Full");
