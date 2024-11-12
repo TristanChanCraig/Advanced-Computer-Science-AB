@@ -19,7 +19,7 @@ public class QueueStack<T extends Comparable<T>> {
     }
     public boolean isEmpty()    { return stack.isEmpty(); }
 
-    public int size() {return stack.size();}
+    public int size() { return stack.size(); }
 }
 // First-In Last-Out
 

@@ -31,12 +31,9 @@ public class Prog1071hStackFromQueue {
             return value;
         }
 
-        public void buy(int amt, double cost) {
-            quantity -= amt;
-            value = cost;
-        }
+        public void buy(int amt) { quantity += amt; }
 
-        public void sell(int amt) { quantity += amt; }
+        public void sell(int amt) { quantity -= amt; }
 
         @Override
         public int compareTo(Cl1071h o) {
@@ -65,16 +62,25 @@ public class Prog1071hStackFromQueue {
                 String c = file2.next();
                 int code = file2.nextInt();
                 int quantity = file2.nextInt();
-                while (code != qs.peek().getCode()) temp.push(qs.pop());
-                Cl1071h jon = qs.pop();
+                double cost = file2.nextDouble();
+                while (code != qs.peek().getCode() && cost != qs.peek().getValue()) temp.push(qs.pop());
+                if (!qs.isEmpty()) Cl1071h jon = qs.pop();
                 if (c.equalsIgnoreCase("B")) {
-                    double cost = file2.nextDouble();
-                    jon.buy(quantity, cost);
-                    jon.sell(quantity);
-                } else
-                    jon.sell(quantity);
+                    if (jon.getValue() != cost) {
+                        Cl1071h men = new Cl1071h(code, quantity, cost);
+                        temp.push(men);
+                    } else {
+                        jon.buy(quantity);
+                    }
+                } else {
+                    if (jon.getValue() != cost) {
+                        Cl1071h men = new Cl1071h(code, quantity, cost);
+                        temp.push(men);
+                    } else {
+                        jon.sell(quantity);
+                    }
+                }
                 System.out.printf("%d\t\t%d\t\t%.2f\n", jon.getCode(), jon.getQuantity(), jon.getValue());
-                temp.push(jon);
                 while (!qs.isEmpty()) temp.push(qs.pop());
                 while (!temp.isEmpty()) qs.push(temp.pop());
             }
