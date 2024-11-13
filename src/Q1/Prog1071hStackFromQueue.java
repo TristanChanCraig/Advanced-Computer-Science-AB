@@ -62,25 +62,30 @@ public class Prog1071hStackFromQueue {
                 String c = file2.next();
                 int code = file2.nextInt();
                 int quantity = file2.nextInt();
-                double cost = file2.nextDouble();
-                while (code != qs.peek().getCode() && cost != qs.peek().getValue()) temp.push(qs.pop());
-                if (!qs.isEmpty()) Cl1071h jon = qs.pop();
+                Cl1071h jon = null;
                 if (c.equalsIgnoreCase("B")) {
-                    if (jon.getValue() != cost) {
-                        Cl1071h men = new Cl1071h(code, quantity, cost);
-                        temp.push(men);
+                    if (qs.peek() != null) {
+                        double cost = file2.nextDouble();
+                        jon = new Cl1071h(code, quantity, cost);
+                        temp.push(jon);
                     } else {
+                        jon = qs.pop();
                         jon.buy(quantity);
                     }
                 } else {
-                    if (jon.getValue() != cost) {
-                        Cl1071h men = new Cl1071h(code, quantity, cost);
-                        temp.push(men);
-                    } else {
-                        jon.sell(quantity);
+                    while (!qs.isEmpty()) {
+                        jon = qs.pop();
+                        if (jon.getCode() == code) {
+                            if (jon.getQuantity() - quantity <= 0) {
+                                quantity -= jon.getQuantity();
+                            } else {
+                                jon = new Cl1071h(code, jon.getQuantity() - quantity, jon.getValue());
+                            }
+                        }
                     }
                 }
                 System.out.printf("%d\t\t%d\t\t%.2f\n", jon.getCode(), jon.getQuantity(), jon.getValue());
+                temp.push(jon);
                 while (!qs.isEmpty()) temp.push(qs.pop());
                 while (!temp.isEmpty()) qs.push(temp.pop());
             }
