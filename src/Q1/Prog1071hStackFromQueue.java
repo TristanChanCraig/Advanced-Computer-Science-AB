@@ -1,11 +1,14 @@
 package Q1;
 
 import DataStructures.QueueStack;
+import jdk.swing.interop.SwingInterOpUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.*;
 
 public class Prog1071hStackFromQueue {
     static class Cl1071h implements Comparable<Cl1071h> {
@@ -55,6 +58,8 @@ public class Prog1071hStackFromQueue {
             }
             file1.close();
             System.out.println();
+            System.out.println(qs.size());
+            System.out.println(qs.peek().code);
 
             System.out.println("Ending Merchandise Inventory:");
             QueueStack<Cl1071h> temp = new QueueStack<>();
@@ -71,35 +76,50 @@ public class Prog1071hStackFromQueue {
                         if (jon.getValue() == value && jon.getCode() == code) {
                             jon.buy(quantity);
                             e = false;
-                            temp.push(jon);
+                            qs.push(jon);
                             break;
+                        } else {
+                            temp.push(jon);
                         }
-                        temp.push(jon);
+//                        System.out.println(qs.size() + " yeet");
                     }
                     if (e) {
                         temp.push(new Cl1071h(code, quantity, value));
                     }
+//                    var tem = temp.pop();
+//                    System.out.println(temp.peek() + " " + tem);
+//                    temp.push(tem);
+                    while (!temp.isEmpty()) qs.push(temp.pop());
                 } else {
                     while (!qs.isEmpty()) {
                         jon = qs.pop();
                         if (jon.getCode() == code) {
                             if (jon.getQuantity() - quantity <= 0) {
                                 quantity -= jon.getQuantity();
-                                jon.sell(jon.getQuantity());
-                                temp.push(new Cl1071h(code, jon.getQuantity() - quantity, jon.getValue()));
-                                break;
+
                             } else {
-                                jon.sell(jon.getQuantity());
+                                jon.sell(quantity);
+                                qs.push(jon);
+//                                System.out.println(jon);
+                                break;
                             }
+                        } else {
+                            temp.push(jon);
                         }
-                        temp.push(jon);
+
                     }
+                    while (!temp.isEmpty()) qs.push(temp.pop());
                 }
-                System.out.printf("%d\t\t%d\t\t%.2f\n", jon.getCode(), jon.getQuantity(), jon.getValue());
-                while (!qs.isEmpty()) temp.push(qs.pop());
-                while (!temp.isEmpty()) qs.push(temp.pop());
+//                System.out.printf("%d\t\t%d\t\t%.2f\n", jon.getCode(), jon.getQuantity(), jon.getValue());
+//                while (!qs.isEmpty()) temp.push(qs.pop());
+//                System.out.println(qs.size());
             }
             file2.close();
+//            ArrayList<Cl1071h> te = new ArrayList<>();
+            while (!qs.isEmpty()) {
+                var jon = qs.pop();
+                System.out.printf("%d\t\t%d\t\t%.2f\n", jon.getCode(), jon.getQuantity(), jon.getValue());
+            }
 
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
