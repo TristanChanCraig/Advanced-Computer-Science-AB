@@ -64,13 +64,20 @@ public class Prog1071hStackFromQueue {
                 int quantity = file2.nextInt();
                 Cl1071h jon = null;
                 if (c.equalsIgnoreCase("B")) {
-                    if (qs.peek() != null) {
-                        double cost = file2.nextDouble();
-                        jon = new Cl1071h(code, quantity, cost);
-                        temp.push(jon);
-                    } else {
+                    double value = file2.nextDouble();
+                    boolean e = true;
+                    while (!qs.isEmpty()) {
                         jon = qs.pop();
-                        jon.buy(quantity);
+                        if (jon.getValue() == value && jon.getCode() == code) {
+                            jon.buy(quantity);
+                            e = false;
+                            temp.push(jon);
+                            break;
+                        }
+                        temp.push(jon);
+                    }
+                    if (e) {
+                        temp.push(new Cl1071h(code, quantity, value));
                     }
                 } else {
                     while (!qs.isEmpty()) {
@@ -78,14 +85,17 @@ public class Prog1071hStackFromQueue {
                         if (jon.getCode() == code) {
                             if (jon.getQuantity() - quantity <= 0) {
                                 quantity -= jon.getQuantity();
+                                jon.sell(jon.getQuantity());
+                                temp.push(new Cl1071h(code, jon.getQuantity() - quantity, jon.getValue()));
+                                break;
                             } else {
-                                jon = new Cl1071h(code, jon.getQuantity() - quantity, jon.getValue());
+                                jon.sell(jon.getQuantity());
                             }
                         }
+                        temp.push(jon);
                     }
                 }
                 System.out.printf("%d\t\t%d\t\t%.2f\n", jon.getCode(), jon.getQuantity(), jon.getValue());
-                temp.push(jon);
                 while (!qs.isEmpty()) temp.push(qs.pop());
                 while (!temp.isEmpty()) qs.push(temp.pop());
             }
