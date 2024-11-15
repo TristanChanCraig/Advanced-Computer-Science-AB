@@ -1,0 +1,76 @@
+try {
+            var file1 = new Scanner(new File("Langdat/bginvtry.txt"));
+            var file2 = new Scanner(new File("Langdat/buysell.txt"));
+            QueueStack<Cl1071h> qs = new QueueStack<>();
+            System.out.println("Merchandise Inventory:");
+            while (file1.hasNext()) {
+                int code = file1.nextInt();
+                int quantity = file1.nextInt();
+                double value = file1.nextDouble();
+                qs.push(new Cl1071h(code, quantity, value));
+                System.out.printf("%d\t\t%d\t\t%.2f\n", code, quantity, value);
+            }
+            file1.close();
+            System.out.println();
+            System.out.println(qs.size());
+            System.out.println(qs.peek().code);
+
+            System.out.println("Ending Merchandise Inventory:");
+            QueueStack<Cl1071h> temp = new QueueStack<>();
+            while (file2.hasNext()) {
+                var let = file2.next();
+                if (let.equalsIgnoreCase("B")) {
+                    var code = file2.nextInt();
+                    var quantity = file2.nextInt();
+                    var value = file2.nextDouble();
+                    var did = true;
+                    Cl1071h fill = new Cl1071h()
+                    while (qs.isEmpty()) {
+                        var jon = qs.pop();
+                        if (jon.getValue() == value) {
+                            fill = new Cl1071h(code, jon.getQuantity()+quantity, jon.getValue());
+                            did = false;
+                            qs.push(fill);
+                            break;
+                        } else {
+                            temp.push(jon);
+                        }
+                    }
+                    if (did) {
+                        var bob = new Cl1071h(code, quantity, value);
+                        temp.push(bob);
+                    }
+                    while (!temp.isEmpty()) {
+                        var dang = temp.pop();
+                        qs.push(dang);
+
+                    }
+                } else if (let.equalsIgnoreCase("S")){
+                    var code = file2.nextInt();
+                    var quantity = file2.nextInt();
+                    Cl1071h fill = null;
+                    while (!qs.isEmpty()) {
+                        var jon = qs.pop();
+                        if (jon.getCode() == code) {
+                            if (jon.getQuantity() - quantity <= 0) {
+                                quantity -= jon.getQuantity();
+                            } else {
+                                fill = new Cl1071h(code, jon.getQuantity() - quantity, jon.getValue());
+                                qs.push(fill);
+                                break;
+                            }
+                        } else {
+                            temp.push(jon);
+                        }
+                    }
+                    while (!temp.isEmpty()) {
+                        qs.push(temp.pop());
+                    }
+
+                }
+            }
+            file2.close();
+            while (!qs.isEmpty()) {
+                var jon = qs.pop();
+                System.out.printf("%d\t\t%d\t\t%.2f\n", jon.getCode(), jon.getQuantity(), jon.getValue());
+            }
