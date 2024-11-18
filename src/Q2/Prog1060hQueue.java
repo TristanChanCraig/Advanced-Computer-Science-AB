@@ -115,8 +115,8 @@ public class Prog1060hQueue {
             while (file3.hasNext()) {
                 String temp = file3.next();
                 String code;
-                switch (temp.substring(0,1)) {
-                    case "L":
+                switch (temp.substring(0, 1)) {
+                    case "L" -> {
                         switch (temp.substring(1, 2)) {
                             case "S" -> printCars(qs[0], "S");
                             case "C" -> printCars(qs[1], "C");
@@ -126,8 +126,8 @@ public class Prog1060hQueue {
                             default -> System.out.println("Not a valid car size!");
                         }
                         System.out.println();
-                        break;
-                    case "R":
+                    }
+                    case "R" -> {
                         switch (temp.substring(1, 2)) {
                             case "S" -> {
                                 Inventory car = sCars.dequeue();
@@ -158,8 +158,8 @@ public class Prog1060hQueue {
                         }
                         System.out.println();
                         System.out.println();
-                        break;
-                    case "A":
+                    }
+                    case "A" -> {
                         code = temp.substring(1, 2);
                         int days = Integer.parseInt(temp.substring(2, 3));
                         double odometer = file3.nextDouble();
@@ -173,8 +173,8 @@ public class Prog1060hQueue {
                             case "L" -> qs[4].enqueue(car);
                             default -> System.out.println("Not a valid car size!");
                         }
-                        break;
-                    case "C":
+                    }
+                    case "C" -> {
                         var t = new Queue<Inventory>();
                         System.out.println("Rented:");
                         while (!rented.isEmpty()) {
@@ -183,9 +183,8 @@ public class Prog1060hQueue {
                             t.enqueue(car2);
                         }
                         while (!t.isEmpty()) rented.enqueue(t.dequeue());
-                        break;
-                    default:
-                        System.out.println("Not a valid transaction!");
+                    }
+                    default -> System.out.println("Not a valid transaction!");
                 }
             }
             file3.close();
