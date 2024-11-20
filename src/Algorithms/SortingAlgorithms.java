@@ -78,7 +78,7 @@ public class SortingAlgorithms {
         if (arr.length > 1) {
             int m = arr.length / 2;
             T[] left = Arrays.copyOfRange(arr, 0, m);
-            T[] right = Arrays.copyOfRange(arr, m, arr.length - m);
+            T[] right = Arrays.copyOfRange(arr, m, arr.length);
             mergeSort(left);
             mergeSort(right);
             merge(arr, left, right);
@@ -91,7 +91,7 @@ public class SortingAlgorithms {
         int k = 0;
 
         while (i < left.length && j < right.length) {
-            if (left[i].compareTo(right[j]) > 0) { // check this
+            if (left[i].compareTo(right[j]) < 0) { // check this
                 arr[k] = left[i];
                 i++;
             } else {

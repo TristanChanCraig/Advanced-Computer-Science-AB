@@ -23,8 +23,7 @@ public class Prog1060hQueue {
         }
 
         public String toString() {
-            System.out.printf("%s\t%.2f\n", name, miles);
-            return null;
+            return String.format("%s\t%.2f\n", name, miles);
         }
 
         public String getSize() { return size; }
@@ -69,7 +68,7 @@ public class Prog1060hQueue {
         System.out.println("Listing for " + getType(type) + ":");
         while (!cars.isEmpty()) {
             var jon = cars.dequeue();
-            jon.toString();
+            System.out.print(jon.toString());
             temp.enqueue(jon);
         }
         while (!temp.isEmpty()) cars.enqueue(temp.dequeue());
@@ -128,35 +127,34 @@ public class Prog1060hQueue {
                         System.out.println();
                     }
                     case "R" -> {
-                        switch (temp.substring(1, 2)) {
-                            case "S" -> {
-                                Inventory car = sCars.dequeue();
-                                System.out.printf("Rented Car:\n%s", car.toString());
-                                rented.enqueue(car);
+                        Inventory car = null;
+                        do {
+                            System.out.println(type);
+                            switch (type) {
+                                case "S" -> {
+                                    if (qs[0].isEmpty()) type = "C";
+                                    else car = sCars.dequeue();
+                                }
+                                case "C" -> {
+                                    if (qs[1].isEmpty()) type = "M";
+                                    else car = cCars.dequeue();
+                                }
+                                case "M" -> {
+                                    if (qs[2].isEmpty()) type = "W";
+                                    else car = mCars.dequeue();
+                                }
+                                case "W" -> {
+                                    if (qs[3].isEmpty()) type = "L";
+                                    else car = wCars.dequeue();
+                                }
+                                case "L" -> {
+                                    if (qs[4].isEmpty()) System.out.println("No valid cars available!");
+                                    else car = lCars.dequeue();
+                                }
                             }
-                            case "C" -> {
-                                Inventory car = cCars.dequeue();
-                                System.out.printf("Rented Car:\n%s", car.toString());
-                                rented.enqueue(car);
-                            }
-                            case "M" -> {
-                                Inventory car = mCars.dequeue();
-                                System.out.printf("Rented Car:\n%s", car.toString());
-                                rented.enqueue(car);
-                            }
-                            case "W" -> {
-                                Inventory car = wCars.dequeue();
-                                System.out.printf("Rented Car:\n%s", car.toString());
-                                rented.enqueue(car);
-                            }
-                            case "L" -> {
-                                Inventory car = lCars.dequeue();
-                                System.out.printf("Rented Car:\n%s", car.toString());
-                                rented.enqueue(car);
-                            }
-                            default -> System.out.println("Not a valid car size!");
-                        }
-                        System.out.println();
+                        } while (car != null || !type.equals("L"));
+                        System.out.printf("Rented Car:\n%s", car.toString());
+                        rented.enqueue(car);
                         System.out.println();
                     }
                     case "A" -> {
@@ -179,7 +177,7 @@ public class Prog1060hQueue {
                         System.out.println("Rented:");
                         while (!rented.isEmpty()) {
                             Inventory car2 = rented.dequeue();
-                            car2.toString();
+                            System.out.print(car2.toString());
                             t.enqueue(car2);
                         }
                         while (!t.isEmpty()) rented.enqueue(t.dequeue());
