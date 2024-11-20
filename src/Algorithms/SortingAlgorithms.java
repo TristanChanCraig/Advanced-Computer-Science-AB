@@ -1,5 +1,7 @@
 package Algorithms;
 
+import java.util.Arrays;
+
 @SuppressWarnings({"unchecked", "unused", "ManualArrayCopy"})
 
 public class SortingAlgorithms {
@@ -75,36 +77,21 @@ public class SortingAlgorithms {
     public static <T extends Comparable<T>> void mergeSort(T[] arr) {
         if (arr.length > 1) {
             int m = arr.length / 2;
-            T[] left = (T[]) new Comparable[m];
-            T[] right = (T[]) new Comparable[arr.length - m];
-            for (int lcv = 0; lcv < m; lcv++) left[lcv] = arr[lcv];
-            for (int lcv = m; lcv < arr.length; lcv++) right[lcv - m] = arr[lcv];
+            T[] left = Arrays.copyOfRange(arr, 0, m);
+            T[] right = Arrays.copyOfRange(arr, m, arr.length - m);
             mergeSort(left);
             mergeSort(right);
-            merge(arr, m, arr.length - m);
+            merge(arr, left, right);
         }
     }
 
-    public static <T extends Comparable<T>> void merge(T[] arr, int l, int r) {
-        int m = (l + r) / 2;
-        int n1 = m - l + 1;
-        int n2 = r - m;
-
-        T[] left = (T[]) new Comparable[n1];
-        T[] right = (T[]) new Comparable[n2];
-
-        for (int i = 0; i < n1; ++i)
-            left[i] = arr[l + i];
-
-        for (int j = 0; j < n2; ++j)
-            right[j] = arr[m + 1 + j];
-
+    public static <T extends Comparable<T>> void merge(T[] arr, T[] left, T[] right) {
         int i = 0;
         int j = 0;
         int k = 0;
 
-        while (i < n1 && j < n2) {
-            if (left[i].compareTo(right[j]) >= 0) { // check this
+        while (i < left.length && j < right.length) {
+            if (left[i].compareTo(right[j]) > 0) { // check this
                 arr[k] = left[i];
                 i++;
             } else {
@@ -114,13 +101,13 @@ public class SortingAlgorithms {
             k++;
         }
 
-        while (i < n1) {
+        while (i < left.length) {
             arr[k] = left[i];
             i++;
             k++;
         }
 
-        while (j < n2) {
+        while (j < right.length) {
             arr[k] = right[j];
             j++;
             k++;
