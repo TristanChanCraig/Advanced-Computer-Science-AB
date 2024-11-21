@@ -2,6 +2,7 @@ package Q2;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 import DataStructures.Queue;
@@ -178,9 +179,10 @@ public class Prog1060hQueue {
                         var t = new Queue<Inventory>();
                         while (!rented.peek().getName().equalsIgnoreCase(name)) t.enqueue(rented.dequeue());
                         var car = rented.dequeue();
+                        while (!rented.isEmpty()) t.enqueue(rented.dequeue());
+                        double cmile = 0;
+                        double cday = 0;
                         switch (car.getSize()) {
-                            double cmile;
-                            double cday;
                             case "S" -> {
                                 cmile = rates[0].getCmile();
                                 cday = rates[0].getCday();
@@ -203,12 +205,19 @@ public class Prog1060hQueue {
                             }
                             default -> System.out.println("Not a valid car size!");
                         }
-
+                        System.out.println("Wrent A Wreck Invoice");
                         System.out.println("Car: " + name);
-                        System.out.println("Beginning Mileage: " + car.getMileage());
-                        System.out.println("Ending Mileage: " + miles);
-                        double mDriven = car.getMileage() - miles;
-                        System.out.println("Miles Driven: " + mDriven + " @ " + cmile);
+                        System.out.printf("Beginning Mileage: %.2f\n", car.getMileage());
+                        System.out.printf("Ending Mileage: %.2f\n", miles);
+                        double mDriven = miles - car.getMileage();
+                        double mDcost = mDriven * cmile;
+                        System.out.printf("Miles Driven: %.2f @ %.2f = %.2f\n",mDriven, cmile, mDcost);
+                        double mDaycost = days * cday;
+                        System.out.printf("Days Driven: %d @ %.2f = %.2f\n", days, cday, mDaycost);
+                        System.out.println("Car Type: " + getType(car.getSize()));
+                        double total = mDaycost + mDcost;
+                        System.out.printf("Total Amount Due: %.2f\n", total);
+                        car.setMileage(miles);
 
                         switch (car.getSize()) {
                             case "S" -> qs[0].enqueue(car);
@@ -218,6 +227,8 @@ public class Prog1060hQueue {
                             case "L" -> qs[4].enqueue(car);
                             default -> System.out.println("Not a valid car size!");
                         }
+                        while (!t.isEmpty()) rented.enqueue(t.dequeue());
+                        System.out.println();
                     }
                     case "C" -> {
                         var t = new Queue<Inventory>();
@@ -269,45 +280,6 @@ Cadillac	1234.50
 Lincoln	8400.20
 Corvette	10341.70
 
-Rented Car:
-Yugo	3456.30
-
-Rented Car:
-Chevette	1710.10
-
-Rented Car:
-RX7	4002.10
-
-Rented Car:
-Sentra	3007.00
-
-Rented Car:
-Shadow	831.20
-
-Rented Car:
-Topaz	412.50
-
-Rented Car:
-Contour	1091.70
-
-Rented Car:
-Fiero	1541.40
-
-Rented Car:
-Cutlass	930.70
-
-Rented Car:
-Mystique	117.40
-
-Rented Car:
-Delta88	2417.70
-
-Rented Car:
-Cadillac	1234.50
-
-Rented Car:
-LaBaron	831.20
-
 Rented:
 Yugo	3456.30
 Chevette	1710.10
@@ -323,12 +295,38 @@ Delta88	2417.70
 Cadillac	1234.50
 LaBaron	831.20
 
+Wrent A Wreck Invoice
+Car: Yugo
+Beginning Mileage: 3456.30
+Ending Mileage: 3640.00
+Miles Driven: 183.70 @ 0.22 = 40.41
+Days Driven: 2 @ 18.00 = 36.00
+Car Type: Sub Compact
+Total Amount Due: 76.41
+
+Wrent A Wreck Invoice
+Car: Cadillac
+Beginning Mileage: 1234.50
+Ending Mileage: 2801.20
+Miles Driven: 1566.70 @ 0.37 = 579.68
+Days Driven: 2 @ 34.00 = 68.00
+Car Type: Luxury
+Total Amount Due: 647.68
+
+Wrent A Wreck Invoice
+Car: Contour
+Beginning Mileage: 1091.70
+Ending Mileage: 2031.70
+Miles Driven: 940.00 @ 0.25 = 235.00
+Days Driven: 3 @ 20.50 = 61.50
+Car Type: Compact
+Total Amount Due: 296.50
+
 Listing for Sub Compact:
-Yugo	3456.30
-Chevette	1710.10
-RX7	4002.10
+Yugo	3640.00
 
 Listing for Compact:
+Contour	2031.70
 
 Listing for Midsize:
 Cougar	1442.20
@@ -340,16 +338,17 @@ Bonneville	5100.00
 Listing for Luxury:
 Lincoln	8400.20
 Corvette	10341.70
+Cadillac	2801.20
 
 Rented:
+Chevette	1710.10
+RX7	4002.10
 Sentra	3007.00
 Shadow	831.20
 Topaz	412.50
-Contour	1091.70
 Fiero	1541.40
 Cutlass	930.70
 Mystique	117.40
 Delta88	2417.70
-Cadillac	1234.50
 LaBaron	831.20
  */
