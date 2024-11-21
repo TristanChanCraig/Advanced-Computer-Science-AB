@@ -27,6 +27,12 @@ public class Prog1060hQueue {
         }
 
         public String getSize() { return size; }
+
+        public double getMileage() { return miles; }
+
+        public String getName() { return name; }
+
+        public void setMileage(double m) { miles = m; }
     }
     static class Rates {
         private String size;
@@ -37,6 +43,14 @@ public class Prog1060hQueue {
             this.size = size;
             this.cday = cday;
             this.cmile = cmile;
+        }
+
+        public double getCday() {
+            return cday;
+        }
+
+        public double getCmile() {
+            return cmile;
         }
     }
 
@@ -128,8 +142,8 @@ public class Prog1060hQueue {
                     }
                     case "R" -> {
                         Inventory car = null;
+                        String type = temp.substring(1, 2);
                         do {
-                            System.out.println(type);
                             switch (type) {
                                 case "S" -> {
                                     if (qs[0].isEmpty()) type = "C";
@@ -148,21 +162,54 @@ public class Prog1060hQueue {
                                     else car = wCars.dequeue();
                                 }
                                 case "L" -> {
-                                    if (qs[4].isEmpty()) System.out.println("No valid cars available!");
-                                    else car = lCars.dequeue();
+                                    car = lCars.dequeue();
                                 }
                             }
-                        } while (car != null || !type.equals("L"));
-                        System.out.printf("Rented Car:\n%s", car.toString());
+                        } while (car == null && !type.equalsIgnoreCase("L"));
+                        // System.out.printf("Rented Car:\n%s", car.toString());
                         rented.enqueue(car);
-                        System.out.println();
+                        // System.out.println();
                     }
                     case "A" -> {
                         code = temp.substring(1, 2);
                         int days = Integer.parseInt(temp.substring(2, 3));
-                        double odometer = file3.nextDouble();
+                        double miles = file3.nextDouble();
                         String name = file3.next();
-                        Inventory car = rented.dequeue();
+                        var t = new Queue<Inventory>();
+                        while (!rented.peek().getName().equalsIgnoreCase(name)) t.enqueue(rented.dequeue());
+                        var car = rented.dequeue();
+                        switch (car.getSize()) {
+                            double cmile;
+                            double cday;
+                            case "S" -> {
+                                cmile = rates[0].getCmile();
+                                cday = rates[0].getCday();
+                            }
+                            case "C" -> {
+                                cmile = rates[1].getCmile();
+                                cday = rates[1].getCday();
+                            }
+                            case "M" -> {
+                                cmile = rates[2].getCmile();
+                                cday = rates[2].getCday();
+                            }
+                            case "W" -> {
+                                cmile = rates[3].getCmile();
+                                cday = rates[3].getCday();
+                            }
+                            case "L" -> {
+                                cmile = rates[4].getCmile();
+                                cday = rates[4].getCday();
+                            }
+                            default -> System.out.println("Not a valid car size!");
+                        }
+
+                        System.out.println("Car: " + name);
+                        System.out.println("Beginning Mileage: " + car.getMileage());
+                        System.out.println("Ending Mileage: " + miles);
+                        double mDriven = car.getMileage() - miles;
+                        System.out.println("Miles Driven: " + mDriven + " @ " + cmile);
+
                         switch (car.getSize()) {
                             case "S" -> qs[0].enqueue(car);
                             case "C" -> qs[1].enqueue(car);
@@ -181,6 +228,7 @@ public class Prog1060hQueue {
                             t.enqueue(car2);
                         }
                         while (!t.isEmpty()) rented.enqueue(t.dequeue());
+                        System.out.println();
                     }
                     default -> System.out.println("Not a valid transaction!");
                 }
@@ -192,3 +240,116 @@ public class Prog1060hQueue {
         }
     }
 }
+/*
+Listing for Sub Compact:
+Yugo	3456.30
+Chevette	1710.10
+RX7	4002.10
+Sentra	3007.00
+
+Listing for Compact:
+Shadow	831.20
+Topaz	412.50
+Contour	1091.70
+Fiero	1541.40
+
+Listing for Midsize:
+Cutlass	930.70
+Mystique	117.40
+LaBaron	831.20
+Cougar	1442.20
+
+Listing for Wagon:
+Delta88	2417.70
+Caprice	4522.80
+Bonneville	5100.00
+
+Listing for Luxury:
+Cadillac	1234.50
+Lincoln	8400.20
+Corvette	10341.70
+
+Rented Car:
+Yugo	3456.30
+
+Rented Car:
+Chevette	1710.10
+
+Rented Car:
+RX7	4002.10
+
+Rented Car:
+Sentra	3007.00
+
+Rented Car:
+Shadow	831.20
+
+Rented Car:
+Topaz	412.50
+
+Rented Car:
+Contour	1091.70
+
+Rented Car:
+Fiero	1541.40
+
+Rented Car:
+Cutlass	930.70
+
+Rented Car:
+Mystique	117.40
+
+Rented Car:
+Delta88	2417.70
+
+Rented Car:
+Cadillac	1234.50
+
+Rented Car:
+LaBaron	831.20
+
+Rented:
+Yugo	3456.30
+Chevette	1710.10
+RX7	4002.10
+Sentra	3007.00
+Shadow	831.20
+Topaz	412.50
+Contour	1091.70
+Fiero	1541.40
+Cutlass	930.70
+Mystique	117.40
+Delta88	2417.70
+Cadillac	1234.50
+LaBaron	831.20
+
+Listing for Sub Compact:
+Yugo	3456.30
+Chevette	1710.10
+RX7	4002.10
+
+Listing for Compact:
+
+Listing for Midsize:
+Cougar	1442.20
+
+Listing for Wagon:
+Caprice	4522.80
+Bonneville	5100.00
+
+Listing for Luxury:
+Lincoln	8400.20
+Corvette	10341.70
+
+Rented:
+Sentra	3007.00
+Shadow	831.20
+Topaz	412.50
+Contour	1091.70
+Fiero	1541.40
+Cutlass	930.70
+Mystique	117.40
+Delta88	2417.70
+Cadillac	1234.50
+LaBaron	831.20
+ */
