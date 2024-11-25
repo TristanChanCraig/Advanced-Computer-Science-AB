@@ -46,8 +46,4 @@ Number	Code	Sales		Commission
 235		5		$5250.00		$396.25
 264		17		$4150.00		$410.50
 291		17		$750.00		$71.25
-
-
-Process finished with exit code 0
-
  */
