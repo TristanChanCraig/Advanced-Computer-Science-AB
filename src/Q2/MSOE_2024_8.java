@@ -18,8 +18,8 @@ public class MSOE_2024_8 {
             arrlist.add(temp);
             temp = input.nextLine();
         }
-
-        String regex = arrlist.get(0).replaceAll("(?<=.)(?=.)", "+");
+// a in b
+        String regex = arrlist.get(0).replaceAll("(?<=.)(?=.)", "+?");
         Pattern p = Pattern.compile(regex);
         for (int i = 1; i < arrlist.size(); i++) {
             Matcher m = p.matcher(arrlist.get(i));
@@ -29,9 +29,9 @@ public class MSOE_2024_8 {
                 i--;
             }
         }
-
+// b in a
         for (int i = 1; i < arrlist.size(); i++) {
-            String regex2 = arrlist.get(i).replaceAll("(?<=.)(?=.)", "+");
+            String regex2 = arrlist.get(i).replaceAll("(?<=.)(?=.)", "+?");
             Pattern p2 = Pattern.compile(regex2);
             Matcher m2 = p2.matcher(arrlist.get(0));
             boolean mFound2 = m2.find();
