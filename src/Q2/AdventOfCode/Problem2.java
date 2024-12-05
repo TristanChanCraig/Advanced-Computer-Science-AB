@@ -22,10 +22,12 @@ public class Problem2 {
             for (int i = 0; i < dArr.size(); i++) {
                 boolean safe = true;
                 String[] arr = dArr.get(i).split(" ");
+                boolean increase = Integer.parseInt(arr[0]) < Integer.parseInt(arr[arr.length-1]) && Integer.parseInt(arr[1]) < Integer.parseInt(arr[arr.length-2]);
                 for (int j = 0; j < arr.length - 1; j++) {
-                    int diff = Integer.parseInt(arr[j+1]) - Integer.parseInt(arr[j]);
+                    int diff = Math.abs(Integer.parseInt(arr[j+1]) - Integer.parseInt(arr[j]));
                     if (diff > 3 || diff < 1) safe = false;
-                    if (Integer.parseInt(arr[j+1]) - Integer.parseInt(arr[j]) < 0) safe = false;
+                    if (increase) if (Integer.parseInt(arr[j]) - Integer.parseInt(arr[j+1]) >= 0) safe = false;
+                    else if (Integer.parseInt(arr[j+1]) - Integer.parseInt(arr[j]) <= 0) safe = false;
                 }
                 if (safe) total++;
             }

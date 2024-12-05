@@ -15,6 +15,7 @@ public class Prog285bBinaryTree {
             var file = new Scanner(new File("Langdat/prog285b.dat"));
             var tree = new BinarySearchTree<Cl285b>();
 
+            System.out.println("Number\tCode\tSales\t\tCommission");
             while (file.hasNext()) {
                 int id = file.nextInt();
                 int c = file.nextInt();
@@ -25,7 +26,7 @@ public class Prog285bBinaryTree {
             }
             file.close();
 
-            System.out.println("Number\tCode\tSales\t\tCommission");
+            tree.delete(tree.getRootData());
             tree.printInOrder();
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
