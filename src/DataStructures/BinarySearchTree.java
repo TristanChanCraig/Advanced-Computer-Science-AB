@@ -119,4 +119,13 @@ public class BinarySearchTree<T extends Comparable<T>> {
         int r = totalNodes(node.right);
         return 1 + l + r;
     }
+
+    public int intTotal() {
+        return getIntTotal(root);
+    }
+
+    private int getIntTotal(Node node) {
+        if (node == null) return 0;
+        return (Integer)node.data + getIntTotal(node.left) + getIntTotal(node.right);
+    }
 }
