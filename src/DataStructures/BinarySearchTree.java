@@ -128,4 +128,47 @@ public class BinarySearchTree<T extends Comparable<T>> {
         if (node == null) return 0;
         return (Integer)node.data + getIntTotal(node.left) + getIntTotal(node.right);
     }
+
+    public void invert() { root = invert(root); }
+    public int height() { return height(root); }
+    public int width() { return width(root); }
+
+    private Node invert(Node node) {
+        if (node == null) return null;
+        Node left = invert(node.left);
+        node.left = invert(node.right);
+        node.right = left;
+        return node;
+    }
+
+    private int height(Node node) {
+        if (node == null) return 0;
+        return 1 + Math.max(height(node.left), height(node.right));
+    }
+
+    private int width(Node node) {
+        if (node == null) return 0;
+        Queue<Node> queue = new Queue<>();
+        queue.enqueue(node);
+        int max = 0;
+        while (!queue.isEmpty()) {
+            int count = queue.size();
+            max = Math.max(max, count);
+            while (count --> 0) {
+                Node current = queue.dequeue();
+                if (current.left != null) queue.enqueue(current.left);
+                if (current.right != null) queue.enqueue(current.right);
+            }
+        }
+        return max;
+    }
+
+    public void takeOutClosestHalfAverage(double avg) {
+        delete(takeOutClosestHalfAverage(avg, root));
+    }
+
+    private int takeOutClosestHalfAverage(double avg, Node node) {
+        if (node == null) return -99999999;
+        double close = Math.min(((Integer)node.data - avg), Math.min(takeOutClosestHalfAverage(avg, node.right), takeOutClosestHalfAverage(avg, node.right))); //fix this bruh
+    }
 }

@@ -16,8 +16,25 @@ public class BigBinaryTree {
         tree.printInOrder();
         tree.printPostorder();
 
-        System.out.println(tree.intTotal() + "\n");
+        System.out.println(tree.size() + "\n");
 
         System.out.println(tree.search(32) + "\n");
+
+        tree.insert(51);
+        tree.insert(102);
+        tree.printInOrder();
+
+        double avg = (double)tree.intTotal() / tree.size();
+        System.out.println("Average: " + avg);
+        for ()
+
+        System.out.println(tree.height());
+        System.out.println();
+
+        System.out.println(tree.width());
+        System.out.println();
+
+        tree.invert();
+        tree.printInOrder();
     }
 }
