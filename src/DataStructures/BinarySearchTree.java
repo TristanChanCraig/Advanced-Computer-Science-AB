@@ -164,12 +164,25 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     public void takeOutClosestHalfAverage(double avg) {
-        delete((T[])takeOutClosestHalfAverage(avg, root));
+        T goofy = (T)takeOutClosestHalfAverage(avg, root);
+        delete(goofy);
+        System.out.println("Removed = " + goofy);
     }
 
-    private int takeOutClosestHalfAverage(double avg, Node node) {
-        if (node == null) return -99999999;
-        double close = Math.min(((Integer)node.data - avg), Math.min(takeOutClosestHalfAverage(avg, node.right), takeOutClosestHalfAverage(avg, node.right))); //fix this bruh
-        return (int) Math.round(close);
+    private Integer takeOutClosestHalfAverage(double avg, Node node) {
+        if (node == null) return 99999999;
+        double half = avg / 2;
+        double first = Math.abs(((Integer)node.data - half));
+        double second = takeOutClosestHalfAverage(avg, node.right);
+        double third = takeOutClosestHalfAverage(avg, node.right);
+        int close = 0;
+        if (first < second) {
+            if (first < third) close = (Integer)node.data;
+            else close = (int)Math.round(second); // node . right
+        } else {
+            if (second < third) close = (int)Math.round(second);
+            else close = (int)Math.round(third); // node . left
+        }
+        return close;
     }
 }

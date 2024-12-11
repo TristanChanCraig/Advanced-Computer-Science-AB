@@ -25,8 +25,7 @@ public class BigBinaryTree {
         tree.printInOrder();
 
         double avg = (double)tree.intTotal() / tree.size();
-        System.out.println("Average: " + avg);
-        for ()
+        tree.takeOutClosestHalfAverage(avg);
 
         System.out.println(tree.height());
         System.out.println();
