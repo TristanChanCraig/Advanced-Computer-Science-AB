@@ -120,3 +120,6 @@ public class AntColony {
         scanner.close();
     }
 }
+/*
+C:\Users\chan.t3\IdeaProjects\Advanced-Computer-Science-AB\Langdat\9a.txt
+ */
