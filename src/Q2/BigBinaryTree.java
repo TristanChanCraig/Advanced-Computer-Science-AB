@@ -35,5 +35,10 @@ public class BigBinaryTree {
 
         tree.invert();
         tree.printInOrder();
+
+        tree.breadthFirstSearch();
+        System.out.println();
+
+        tree.depthFirstSearch();
     }
 }
