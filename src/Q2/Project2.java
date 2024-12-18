@@ -68,5 +68,6 @@ public class Project2 {
             String choice = input.next();
             run = execute(choice, arrlist);
         }
+        System.out.print("Goodbye!");
     }
 }
