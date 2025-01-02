@@ -17,7 +17,7 @@ public class NEWMSOE_2024_9 {
     }
 
     public static boolean solvable(String[][] map) {
-
+        return false;
     }
 
     public static void main(String[] args) throws FileNotFoundException {
