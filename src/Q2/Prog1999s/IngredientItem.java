@@ -9,6 +9,14 @@ public class IngredientItem implements Comparable<IngredientItem>{
         cnt = c;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getCnt() {
+        return cnt;
+    }
+
     @Override
     public int compareTo(IngredientItem o) {
         return name.compareTo(o.name);
