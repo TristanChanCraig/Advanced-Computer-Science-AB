@@ -209,4 +209,21 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
         System.out.println();
     }
+
+    // Prog1999s
+    public Node getRoot() {
+        return root;
+    }
+
+    public Node getLeft(Node node) {
+        return node.left;
+    }
+
+    public Node getRight(Node node) {
+        return node.right;
+    }
+
+    public T getData(Node node) {
+        return node.data;
+    }
 }

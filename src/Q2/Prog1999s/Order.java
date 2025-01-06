@@ -9,6 +9,14 @@ public class Order implements Comparable<Order>{
         q = qty;
     }
 
+    public int getAmt() {
+        return q;
+    }
+
+    public String getName() {
+        return n;
+    }
+
     @Override
     public int compareTo(Order o) {
         return n.compareTo(o.n);

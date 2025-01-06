@@ -76,21 +76,41 @@ public class Prog1999s {
 
             // remove from shipment manager add to inventory buffer
             for (int i = 0; i < inventoryBuffer.length; i++) {
-                boolean added = false;
                 IngredientItem item = inventoryBuffer[i];
                 for (int j = 0; j < shipmentManager.size(); j++) {
                     IngredientBatch e = (IngredientBatch) shipmentManager.get(j);
                     ArrayList<IngredientItem> ings = e.getIngredients();
                     for (int k = 0; k < ings.size(); k++) {
-                        if (item.getName().equalsIgnoreCase(ings.get(k).getName())) {
-
+                        IngredientItem item2 = ings.get(k);
+                        if (item.getName().equalsIgnoreCase(item2.getName())) {
+                            item.addCnt(item2.getCnt());
                         }
                     }
                 }
             }
 
+            while (!processOrders.isEmpty()) {
+                Order order = (Order) processOrders.dequeue();
+                int amt = order.getAmt();
+                String name = order.getName();
+                Recipe recipe = getRecipe(name, recipeCatalog);
+            }
+
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
+    }
+
+    public static Recipe getRecipe(String name, BinarySearchTree recipes) {
+        var node = recipes.getRoot();
+        var left = recipes.getLeft(node);
+        var right = recipes.getRight(node);
+        while (left != null && right != null) {
+
+        }
+    }
+
+    public static BinarySearchTree.Node getRecipe(String name, BinarySearchTree recipes) {
+
     }
 }

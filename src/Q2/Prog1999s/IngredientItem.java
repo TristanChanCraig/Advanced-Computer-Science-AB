@@ -9,6 +9,10 @@ public class IngredientItem implements Comparable<IngredientItem>{
         cnt = c;
     }
 
+    public void addCnt(int amt) {
+        cnt += amt;
+    }
+
     public String getName() {
         return name;
     }
