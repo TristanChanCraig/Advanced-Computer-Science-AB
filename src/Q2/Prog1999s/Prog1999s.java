@@ -110,7 +110,7 @@ public class Prog1999s {
         }
     }
 
-    public static BinarySearchTree.Node getRecipe(String name, BinarySearchTree recipes) {
+    public static T getRecipeNode(T node, String name, BinarySearchTree recipes) {
 
     }
 }
