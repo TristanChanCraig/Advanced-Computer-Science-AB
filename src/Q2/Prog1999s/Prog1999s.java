@@ -108,9 +108,7 @@ public class Prog1999s {
         while (left != null && right != null) {
 
         }
+        return null;
     }
 
-    public static T getRecipeNode(T node, String name, BinarySearchTree recipes) {
-
-    }
 }
