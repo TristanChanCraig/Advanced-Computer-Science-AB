@@ -13,6 +13,10 @@ public class IngredientItem implements Comparable<IngredientItem>{
         cnt += amt;
     }
 
+    public void subtractCnt(int amt) {
+        cnt -= amt;
+    }
+
     public String getName() {
         return name;
     }

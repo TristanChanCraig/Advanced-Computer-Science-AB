@@ -226,4 +226,35 @@ public class BinarySearchTree<T extends Comparable<T>> {
     public T getData(Node node) {
         return node.data;
     }
+
+    public T findString(String s) {
+        var node = root;
+        var queue = new Queue<Node>();
+        queue.enqueue(node);
+        while (!queue.isEmpty()) {
+            var cnt = queue.size();
+            while (cnt --> 0) {
+                var curr = queue.dequeue();
+                if (s.compareTo(String.valueOf(curr.data)) == 0) node = curr;
+                if (curr.left != null) queue.enqueue(curr.left);
+                if (curr.right != null) queue.enqueue(curr.right);
+            }
+        }
+        return node.data;
+    }
+
+    public T getElement(T element) {
+        return getElement(root, element);
+    }
+
+    private T getElement(Node node, T element) {
+        if (node == null) return null;
+        if (element.compareTo(node.data) < 0)
+            return getElement(node.left, element);
+        else if (element.compareTo(node.data) > 0)
+            return getElement(node.right, element);
+        else
+            return node.data;
+    }
+
 }
