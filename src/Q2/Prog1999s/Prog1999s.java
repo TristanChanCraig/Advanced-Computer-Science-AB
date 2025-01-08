@@ -16,7 +16,7 @@ public class Prog1999s {
 
             int num = file.nextInt();
             file.nextLine();
-            BinarySearchTree recipeCatalog = new BinarySearchTree<>();
+            BinarySearchTree<Recipe> recipeCatalog = new BinarySearchTree<>();
             for (int i = 0; i < num; i++) {
                 String name = file.next();
                 String temp = file.nextLine().trim();
@@ -34,7 +34,7 @@ public class Prog1999s {
 
             num = file.nextInt();
             file.nextLine();
-            DoublyLinkedList shipmentManager = new DoublyLinkedList();
+            DoublyLinkedList<IngredientBatch> shipmentManager = new DoublyLinkedList<>();
             for (int i = 0; i < num; i++) {
                 String temp = file.nextLine();
                 shipmentManager.add(new IngredientBatch(temp));
@@ -51,7 +51,7 @@ public class Prog1999s {
 
             num = file.nextInt();
             file.nextLine();
-            Deque deque = new Deque<>();
+            Deque<String> deque = new Deque<>();
             for (int i = 0; i < num; i++) {
                 String temp = file.nextLine();
                 String[] temp2 = temp.split(" ");
@@ -73,7 +73,7 @@ public class Prog1999s {
 
             num = file.nextInt();
             file.nextLine();
-            Stack stack = new Stack();
+            Stack<String> stack = new Stack<>();
             for (int i = 0; i < num; i++) {
                 String temp = file.nextLine();
                 String[] temp2 = temp.split(" ");
@@ -106,7 +106,7 @@ public class Prog1999s {
                 Order order = (Order) processOrders.dequeue();
                 int amt = order.getAmt();
                 String name = order.getName();
-                Recipe recipe = (Recipe) recipeCatalog.findString(name);
+                Recipe recipe = (Recipe) recipeCatalog.getElement(new Recipe(name));
                 var ings = recipe.getIngredients().getIngredients();
                 for (IngredientItem item : ings) {
                     for (var n : inventoryBuffer) {
@@ -132,3 +132,24 @@ public class Prog1999s {
     }
 
 }
+/*
+FINAL:
+Pasta 6
+Sauce 2
+Cheese 1
+Quinoa 2
+Chickpeas 2
+Herbs 4
+Spinach 3
+Lemons 4
+Tortillas 4
+Beans 4
+Salsa 2
+
+FEATURED MEALS:
+VeganBowl
+SpicyTacos
+
+TOP OF RECENTLY VIEWED:
+GrilledSalmon
+ */
