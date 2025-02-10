@@ -37,7 +37,7 @@ public class MSOE_2016_7 {
                 }
             }
         }
-        if (!bruh.contains(true) || !bruh.size() == 0) return 2; // fix this shit
+        // if (!bruh.contains(true) || !bruh.size() == 0) return 2; // fix this shit
         // Error 3
 
 
