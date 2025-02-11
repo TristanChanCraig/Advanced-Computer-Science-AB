@@ -144,4 +144,35 @@ public class SortingAlgorithms {
         arr[i] = arr[j];
         arr[j] = temp;
     }
+
+    // TODO: Heap Sort
+    public static <T extends Comparable<T>> void heapSort(T[] arr) {
+        int n = arr.length;
+        buildMaxHeap(arr);
+        for (int i = n - 1; i >= 1; i--) {
+            swap(arr, 0, i);
+            n -= 1;
+            maxHeapify(arr, 0, n);
+        }
+    }
+
+    private static <T extends Comparable<T>> void buildMaxHeap(T[] arr) {
+        int n = arr.length;
+        for (int i = (n/2) - 1; i >= 0; i--) maxHeapify(arr, i, n);
+    }
+
+    private static <T extends Comparable<T>> void maxHeapify(T[] arr, int i, int n) {
+        // TODO
+        int largest = i;
+        int l = 2 * i + 1;
+        int r = 2 * i + 2;
+        if (l < n && arr[l].compareTo(arr[largest]) > 0) largest = l;
+        if (r < n && arr[r].compareTo(arr[largest]) > 0) largest = r;
+        if (largest != i) {
+            swap(arr, i, largest);
+            maxHeapify(arr, largest, n);
+        }
+
+
+    }
 }

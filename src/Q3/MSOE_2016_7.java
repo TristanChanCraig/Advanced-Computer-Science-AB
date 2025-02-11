@@ -30,17 +30,39 @@ public class MSOE_2016_7 {
                         if (set.size() != skyscraper[0].length) bruh.add(false);
                         else bruh.add(true);
 
-                        for (int l = 0; l < skyscraper[i].length; i++) set.insert(skyscraper[l][j]);
-                        if (set.size() != skyscraper[0].length) bruh.add(false);
+                        var set2 = new Set<Integer>();
+                        for (int l = 0; l < skyscraper[i].length; i++) set2.insert(skyscraper[l][j]);
+                        if (set2.size() != skyscraper[0].length) bruh.add(false);
                         else bruh.add(true);
                     }
                 }
             }
         }
-        // if (!bruh.contains(true) || !bruh.size() == 0) return 2; // fix this shit
+         if (bruh.contains(false)) return 2;
         // Error 3
+        for (int i = 0; i < clues.length; i++) {
+            int d = clues[i][0];
+            int index = clues[i][1];
+            int buildings = clues[i][2];
+            int cnt = 1;
+            switch (d) {
+                case 0:
+                    for (int j = skyscraper.length-2; j >= 0; j--) if (skyscraper[j][index] > skyscraper[j+1][index]) cnt++;
+                    break;
+                case 1:
+                    for (int j = skyscraper.length-2; j >= 0; j--) if (skyscraper[index][j] > skyscraper[index][j+1]) cnt++;
+                    break;
+                case 2:
+                    for (int j = 1; j < skyscraper.length; j++) if (skyscraper[j][index] > skyscraper[j-1][index]) cnt++;
+                    break;
+                case 3:
+                    for (int j = 1; j < skyscraper.length; j++) if (skyscraper[index][j] > skyscraper[index][j-1]) cnt++;
+                    break;
+            }
+            if (cnt != buildings) return 3;
+        }
 
-
+        // Default
         return 0;
     }
     public static void main(String[] args) throws FileNotFoundException {
