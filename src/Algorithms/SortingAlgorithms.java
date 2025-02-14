@@ -145,7 +145,6 @@ public class SortingAlgorithms {
         arr[j] = temp;
     }
 
-    // TODO: Heap Sort
     public static <T extends Comparable<T>> void heapSort(T[] arr) {
         int n = arr.length;
         buildMaxHeap(arr);
@@ -172,7 +171,5 @@ public class SortingAlgorithms {
             swap(arr, i, largest);
             maxHeapify(arr, largest, n);
         }
-
-
     }
 }
