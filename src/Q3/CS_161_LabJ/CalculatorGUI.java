@@ -27,44 +27,35 @@ public class CalculatorGUI extends JFrame {
     private JButton periodButton;
     private JButton equalButton;
     private JButton addButton;
-    private String num;
 
     public static void clearCalc(JTextField outputField) {
         outputField.setText("0");
     }
-    public static String addDigit(JTextField outputField, int digit, String num) {
-        num += digit;
-        outputField.setText(num);
-        return num;
+    public static void addDigit(JTextField outputField, int digit, Calculator calc) {
+        calc.add(calc.getValue()*10+digit);
     }
-    public static String addDecimal(JTextField outputField, String num) {
-        num += ".";
-        outputField.setText(num);
-        return num;
+    public static String addDecimal(JTextField outputField, Calculator calc) {
+
     }
-    public static String addOperation(JTextField outputField, String op, String num) {
-        num += op;
-        outputField.setText(num);
-        return num;
+    public static String addOperation(JTextField outputField, String op, Calculator calc) {
+
     }
     public static double getDisplayValue(String num) {
         return Double.parseDouble(num);
     }
-    public static String applyOperation(JTextField outputField, String num) {
+    public static String applyOperation(JTextField outputField, Calculator calc) {
 
-        return num;
     }
 
     public CalculatorGUI() {
         // TODO
         var calc = new Calculator();
         outputField.setEditable(false);
-        num = "";
 
         a0Button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                num = addDigit(outputField, 0, num);
+                addDigit(outputField, 0, calc);
             }
         });
         a1Button.addMouseListener(new MouseAdapter() {
