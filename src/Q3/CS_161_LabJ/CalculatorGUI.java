@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class CalculatorGUI extends JFrame {
@@ -27,113 +28,130 @@ public class CalculatorGUI extends JFrame {
     private JButton periodButton;
     private JButton equalButton;
     private JButton addButton;
+    private static boolean period = false;
+    private static int numAfterPeriod = 0;
+    private static String num = "";
+    private static Calculator calc = new Calculator();
 
     public static void clearCalc(JTextField outputField) {
+        calc.clear();
+        period = false;
+        numAfterPeriod = 0;
+        num = "";
         outputField.setText("0");
     }
-    public static void addDigit(JTextField outputField, int digit, Calculator calc) {
-        calc.add(calc.getValue()*10+digit);
-    }
-    public static String addDecimal(JTextField outputField, Calculator calc) {
+    public static void addDigit(JTextField outputField, double digit) {
+        num += (int)digit;
+        if (!period) {
+            calc.add((calc.getValue()*10+digit) - calc.getValue());
+            outputField.setText(num);
+        }
+        else {
+            calc.add(digit/Math.pow(10, numAfterPeriod + 1));
+            outputField.setText(num);
+            numAfterPeriod++;
+        }
 
     }
-    public static String addOperation(JTextField outputField, String op, Calculator calc) {
-
+    public static boolean addDecimal(JTextField outputField) {
+        num += ".";
+        outputField.setText(String.valueOf((int)calc.getValue()) + ".");
+        return true;
     }
     public static double getDisplayValue(String num) {
         return Double.parseDouble(num);
     }
-    public static String applyOperation(JTextField outputField, Calculator calc) {
+    public static void applyOperation(JTextField outputField, int op) {
 
     }
 
     public CalculatorGUI() {
         // TODO
-        var calc = new Calculator();
+        calc = new Calculator();
         outputField.setEditable(false);
 
         a0Button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                addDigit(outputField, 0, calc);
+                addDigit(outputField, 0);
             }
         });
         a1Button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                num = addDigit(outputField, 1, num);
+                addDigit(outputField, 1);
             }
         });
         a2Button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                num = addDigit(outputField, 2, num);
+                addDigit(outputField, 2);
             }
         });
         a3Button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                num = addDigit(outputField, 3, num);
+                addDigit(outputField, 3);
             }
         });
         a4Button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                num = addDigit(outputField, 4, num);
+                addDigit(outputField, 4);
             }
         });
         a5Button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                num = addDigit(outputField, 5, num);
+                addDigit(outputField, 5);
             }
         });
         a6Button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                num = addDigit(outputField, 6, num);
+                addDigit(outputField, 6);
             }
         });
         a7Button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                num = addDigit(outputField, 7, num);
+                addDigit(outputField, 7);
             }
         });
         a8Button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                num = addDigit(outputField, 8, num);
+                addDigit(outputField, 8);
             }
         });
         a9Button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                num = addDigit(outputField, 9, num);
+                addDigit(outputField, 9);
             }
         });
         divideButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                num = addOperation(outputField, "/", num);
+                applyOperation(outputField, 4);
             }
         });
         multiplyButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                num = addOperation(outputField, "*", num);
+                applyOperation(outputField, 3);
             }
         });
         addButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                num = addOperation(outputField, "+", num);
+                applyOperation(outputField, 1);
             }
         });
         subtractButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                num = addOperation(outputField, "-", num);
+                applyOperation(outputField, 2);
             }
         });
         clearButton.addMouseListener(new MouseAdapter() {
@@ -145,13 +163,13 @@ public class CalculatorGUI extends JFrame {
         periodButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                num = addDecimal(outputField, num);
+                period = addDecimal(outputField);
             }
         });
         equalButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                num = applyOperation(outputField, num);
+                applyOperation(outputField, 0);
             }
         });
     }
