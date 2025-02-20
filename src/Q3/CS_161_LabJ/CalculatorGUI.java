@@ -38,16 +38,14 @@ public class CalculatorGUI extends JFrame {
         period = false;
         numAfterPeriod = 0;
         num = "";
-        outputField.setText("0");
+        outputField.setText("");
     }
     public static void addDigit(JTextField outputField, double digit) {
         num += (int)digit;
         if (!period) {
-            calc.add((calc.getValue()*10+digit) - calc.getValue());
             outputField.setText(num);
         }
         else {
-            calc.add(digit/Math.pow(10, numAfterPeriod + 1));
             outputField.setText(num);
             numAfterPeriod++;
         }
@@ -62,7 +60,14 @@ public class CalculatorGUI extends JFrame {
         return Double.parseDouble(num);
     }
     public static void applyOperation(JTextField outputField, int op) {
-
+        calc.applyOperation(getDisplayValue(num), op);
+        num = "";
+        outputField.setText("");
+        if (op == 0) {
+            if (!period) num = String.valueOf((int)calc.getValue());
+            else num = String.valueOf(calc.getValue());
+            outputField.setText(num);
+        }
     }
 
     public CalculatorGUI() {
