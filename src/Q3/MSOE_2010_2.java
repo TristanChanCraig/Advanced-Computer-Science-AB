@@ -1,0 +1,1 @@
+package Q3; public class MSOE_2010_2 { public static void main(String[] args) { System.out.print("Enter the string: "); System.out.print(java.util.regex.Pattern.compile("([a-zA-Z])\\1\\1").matcher(new java.util.Scanner(System.in).nextLine()).find()); } }
