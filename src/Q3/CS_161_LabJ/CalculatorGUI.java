@@ -53,7 +53,7 @@ public class CalculatorGUI extends JFrame {
     }
     public static boolean addDecimal(JTextField outputField) {
         num += ".";
-        outputField.setText(String.valueOf((int)calc.getValue()) + ".");
+        outputField.setText(num);
         return true;
     }
     public static double getDisplayValue(String num) {
@@ -64,14 +64,23 @@ public class CalculatorGUI extends JFrame {
         num = "";
         outputField.setText("");
         if (op == 0) {
-            if (!period) num = String.valueOf((int)calc.getValue());
-            else num = String.valueOf(calc.getValue());
+            String temp = String.valueOf(calc.getValue());
+            if (temp.substring(temp.length()-2).equals(".0")) {
+                period = false;
+                num = String.valueOf((int)calc.getValue());
+                numAfterPeriod = 0;
+            }
+            else {
+                num = String.valueOf(calc.getValue());
+                numAfterPeriod = num.split("\\.")[1].length();
+            }
             outputField.setText(num);
         }
     }
 
+    public JPanel getMainPanel() { return mainPanel; }
+
     public CalculatorGUI() {
-        // TODO
         calc = new Calculator();
         outputField.setEditable(false);
 
@@ -177,13 +186,5 @@ public class CalculatorGUI extends JFrame {
                 applyOperation(outputField, 0);
             }
         });
-    }
-
-    public static void main(String[] args) {
-        var frame = new JFrame("Calculator");
-        frame.setContentPane(new CalculatorGUI().mainPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
     }
 }
