@@ -26,9 +26,8 @@ public class Prog595r {
             var newSen = new ArrayList<String>(Arrays.asList(temp));
             int numSen = newSen.size();
 
-            var newWords = new ArrayList<String>();
             var temp2 = line.split("\\s+");
-            newWords.addAll(Arrays.asList(temp2));
+            var newWords = new ArrayList<String>(Arrays.asList(temp2));
             newWords.replaceAll(n -> n.replaceAll("[^a-zA-Z]", "").toLowerCase());
             int numWords = newWords.size();
 
