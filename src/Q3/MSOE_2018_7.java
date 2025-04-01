@@ -35,7 +35,7 @@ public class MSOE_2018_7 {
         }
         while (unix >= 86400) {
             unix -= 86400;
-            month++;
+            day++;
             if (day == daysInMonth) {
                 day = 1;
                 if (month == 12) year++;
