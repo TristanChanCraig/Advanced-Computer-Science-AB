@@ -38,7 +38,7 @@ public class Prog1060zPrioQ {
                 if (command == 'W') { // Write out
 
                 } else if (command == 'P') { // Pop
-                    pq.
+
                 } else { // Add
                     char priority = info.charAt(1);
                     int job = Integer.parseInt(info.substring(2));
