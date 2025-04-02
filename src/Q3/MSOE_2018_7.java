@@ -11,6 +11,7 @@ public class MSOE_2018_7 {
         } else daysInMonth = (month % 2 == 0) ? 31 : 30;
         return daysInMonth;
     }
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         System.out.print("Enter UNIX time: ");
@@ -23,7 +24,7 @@ public class MSOE_2018_7 {
         int minutes = 0;
         int seconds = 0;
         while (unix >= 365 * 86400) {
-            if (year - 1 % 4 == 0) unix -= 366 * 86400;
+            if (year % 4 == 0) unix -= 366 * 86400;
             else unix -= 365 * 86400;
             year++;
         }
@@ -36,17 +37,17 @@ public class MSOE_2018_7 {
         while (unix >= 86400) {
             unix -= 86400;
             day++;
-            if (day == daysInMonth) {
+            if (day > daysInMonth) {
                 day = 1;
                 if (month == 12) year++;
                 month = month % 12 + 1;
                 daysInMonth = days(month, year);
-            } else day++;
+            }
         }
         while (unix >= 3600) {
             unix -= 3600;
             hours++;
-            if (hours > 24) {
+            if (hours >= 24) {
                 hours = 0;
                 day++;
                 if (day == daysInMonth) {
@@ -54,7 +55,7 @@ public class MSOE_2018_7 {
                     if (month == 12) year++;
                     month = month % 12 + 1;
                     daysInMonth = days(month, year);
-                } else day++;
+                }
             }
         }
         while (unix >= 60) {
@@ -69,7 +70,7 @@ public class MSOE_2018_7 {
                         if (month == 12) year++;
                         month = month % 12 + 1;
                         daysInMonth = days(month, year);
-                    } else day++;
+                    }
                 }
             }
         }
@@ -88,12 +89,12 @@ public class MSOE_2018_7 {
                             if (month == 12) year++;
                             month = month % 12 + 1;
                             daysInMonth = days(month, year);
-                        } else day++;
+                        }
                     }
                 }
             }
         }
-        String theM = (hours > 12) ? "PM" : "AM";
+        String theM = (hours >= 12) ? "PM" : "AM"; // fix
         hours = (hours > 12) ? hours % 12 : hours % 12 + 1;
         System.out.printf("%d:%d %s\t\t%d/%d/%d", hours, minutes, theM, month, day, year);
     }
