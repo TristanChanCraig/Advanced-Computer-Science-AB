@@ -224,11 +224,17 @@ How many of the bunnies has Pill been a customer?
             System.out.println("Check the numbers in all of the bunny’s trees, total the largest and smallest number of each tree.");
             var iter = bunnies.iterator();
             var curr = iter.next();
+            var numHats = 0;
             while (curr != null) {
                 var tree = curr.numbers();
+                var hats = curr.hats();
+                numHats += hats.size();
                 // most and least num
                 curr = iter.next();
             }
+            System.out.println("Calculate the total number of Magic Hats for all of the bunnies.");
+            System.out.println(numHats);
+            System.out.println("Calculate the bunny that has the most letters in all of its magic hats.");
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
