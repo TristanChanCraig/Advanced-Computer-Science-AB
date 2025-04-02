@@ -1,5 +1,6 @@
 package Q3;
 
+import java.sql.Time;
 import java.util.Scanner;
 
 public class MSOE_2018_7 {
@@ -95,7 +96,18 @@ public class MSOE_2018_7 {
             }
         }
         String theM = (hours >= 12) ? "PM" : "AM"; // fix
-        hours = (hours > 12) ? hours % 12 : hours % 12 + 1;
-        System.out.printf("%d:%d %s\t\t%d/%d/%d", hours, minutes, theM, month, day, year);
+        hours = (hours == 0) ? 12 : (hours > 12) ? hours - 12 : hours;
+        if (minutes == 0) System.out.printf("%d:%d0 %s\t\t%d/%d/%d", hours, minutes, theM, month, day, year);
+        else System.out.printf("%d:%d %s\t\t%d/%d/%d", hours, minutes, theM, month, day, year);
     }
 }
+/*
+Enter UNIX time: 0
+12:00 AM		1/1/1970
+
+Enter UNIX time: 1234567890
+11:31 PM		2/13/2009
+
+Enter UNIX time: 1111111111
+1:58 AM		3/18/2005
+ */
