@@ -257,4 +257,15 @@ public class BinarySearchTree<T extends Comparable<T>> {
             return node.data;
     }
 
+    public Integer max(Node node) {
+        int max = (Integer)node.data;
+        if(node.left != null) {
+            max = Math.max(max, max(node.left));
+        }
+        if(node.right != null) {
+            max = Math.max(max, max(node.right));
+        }
+        return max;
+    }
+
 }

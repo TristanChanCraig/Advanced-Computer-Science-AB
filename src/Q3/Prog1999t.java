@@ -2,10 +2,8 @@ package Q3;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
-import java.util.Random;
+import java.util.*;
+
 import DataStructures.Set;
 import DataStructures.Dictionary;
 import DataStructures.LinkedList;
@@ -225,18 +223,100 @@ How many of the bunnies has Pill been a customer?
             var iter = bunnies.iterator();
             var curr = iter.next();
             var numHats = 0;
-            while (curr != null) {
+            var total = 0;
+            var arr = new int[bunnies.size()];
+            var arr2 = new int[bunnies.size()];
+            var names = new String[bunnies.size()];
+            var cntt = 0;
+            var in = 0;
+            var min = 999999;
+            var pillcnt = 0;
+            while (iter.hasNext()) {
+                names[cntt] = curr.name();
+                var nums = new ArrayList<Integer>();
                 var tree = curr.numbers();
                 var hats = curr.hats();
                 numHats += hats.size();
-                // most and least num
+                if (hats.size() < min) {
+                    min = hats.size();
+                    in = cntt;
+                }
+                total += tree.getData(tree.getRoot()) + tree.max(tree.getRoot());
+                var ite = hats.iterator();
+                var cur = ite.next();
+                while (ite.hasNext()) {
+                    nums.add(cur);
+                    arr[cntt] += hats.get(cur).length();
+                    if (arr2[cntt] < hats.get(cur).length()) arr2[cntt] = hats.get(cur).length();
+                    cur = ite.next();
+                }
+                var cust = bunnies.get(cntt).customers();
+                cust.insert("Jill");
+                if (cntt % 2 == 1) {
+                    cust.insert("Pill");
+                    pillcnt++;
+                }
+                if (cntt == 0) hats.insert(100, "Polymorph");
+                if (cntt == bunnies.size() - 1) hats.insert(101, "Shrink");
+                if (cntt == 1) {
+                    hats.remove(1);
+                    pillcnt--;
+                    cntt--;
+                }
+                cust.remove("Fred");
+                cntt++;
                 curr = iter.next();
             }
+            System.out.println(total);
             System.out.println("Calculate the total number of Magic Hats for all of the bunnies.");
             System.out.println(numHats);
             System.out.println("Calculate the bunny that has the most letters in all of its magic hats.");
+            Arrays.sort(arr);
+            System.out.println(arr[0]);
+            System.out.println("Which bunny has the single longest name for its magic hat.");
+            String name = names[0];
+            int high = arr2[0];
+            for (int i = 1; i < bunnies.size(); i++) if (arr2[i] > high) {
+                high = arr2[i];
+                name = names[i];
+            }
+            System.out.println(name);
+            System.out.println("Get rid of the bunny with the fewest number of magic hats.");
+            bunnies.remove(in);
+            System.out.println("The bunnies had a big sale but Jill and Pill were the only to show up and buy.  Add Jill to each of the Sets of purchasers and Pill to all of the odd bunnies as a purchaser.");
+            System.out.println("The first bunny just purchased a magic hat with a number of 100 which polymorphs and the last bunny bought a magic hat with a number of 101 which shrinks.");
+            System.out.println("How many of the bunnies has Pill been a customer?");
+            System.out.println(pillcnt);
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
 }
+/*
+Which eel ate the most fish? Patt Anne
+How much did it cost to feed all of the eels on the 2nd Tuesday? 530
+If fish cost 1 on Monday, 2 on Tuesday... all the way to 5 on Friday, which eel costs the most to feed?Eel[firstName=Patt, lastName=Anne, food=[[I@108c4c35, fishEaten=DataStructures.LinkedList@4ccabbaa]
+If fish cost 1 on Monday, 2 on Tuesday... all the way to 5 on Friday, which eel costs the most to feed on week1? Week2? Week3? Week 1: Patt Anne	Week 2: Rick Smal	Week 3: Boby Wine
+What is the name of the longest fish that each eel has eaten, and which eel ate the longest fish? Kaelyn Lucy Izzy Izzy
+Jill Pill ate the longest fish
+Did any of the eels eat a fish of the same name?
+Jill Pill Rick Smal Boby Wine Patt Anne
+What day was the most expensive day to feed the eels? Monday, Tuesday...
+Thursday
+Calculate the total number of unique individuals that the bunnies sold feet to.
+3
+Check the numbers in all of the bunny�s trees, total the largest and smallest number of each tree.
+419197
+Calculate the total number of Magic Hats for all of the bunnies.
+18
+Calculate the bunny that has the most letters in all of its magic hats.
+0
+Which bunny has the single longest name for its magic hat.
+Jean
+Get rid of the bunny with the fewest number of magic hats.
+The bunnies had a big sale but Jill and Pill were the only to show up and buy.  Add Jill to each of the Sets of purchasers and Pill to all of the odd bunnies as a purchaser.
+The first bunny just purchased a magic hat with a number of 100 which polymorphs and the last bunny bought a magic hat with a number of 101 which shrinks.
+How many of the bunnies has Pill been a customer?
+1
+
+ */
