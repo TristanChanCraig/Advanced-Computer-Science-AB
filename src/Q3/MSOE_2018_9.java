@@ -13,17 +13,32 @@ public class MSOE_2018_9 {
         String strBinary = "";
         for (int i = 0; i < line.length(); i++) {
             char c = line.charAt(i);
-            strBinary += Integer.toBinaryString(c);
+            int numeric = ((int) c) - 32;
+            String binary = Integer.toBinaryString(numeric);
+            while (binary.length() != 6) binary = "0" + binary;
+            strBinary += binary;
         }
-        String strKey = Integer.toBinaryString(key);
-        for (int i = 0; i < strKey.length(); i++) {
-
+        String strKey = "000000" + Integer.toBinaryString(key);
+        String newStrBinary = "";
+        for (int i = 0; i < strBinary.length(); i++) {
+            if (i < strKey.length()) newStrBinary += strBinary.charAt(i) ^ strKey.charAt(i);
+            else newStrBinary += strBinary.charAt(i) ^ strKey.charAt(i % (strKey.length()-1)); // fix
+        }
+        System.out.println(newStrBinary);
+        String newLine = "";
+        for (int i = 0; i < newStrBinary.length(); i+=6) {
+            int ascii = Integer.parseInt(newStrBinary.substring(i, i+6), 2) + 32;
+            char c = (char) ascii;
+            newLine += c;
         }
 
-        line = String.valueOf(binary ^ k);
-        System.out.println(line);
-        System.out.println(binary);
-        System.out.println(k);
+        System.out.println(strBinary);
+        System.out.println(strKey);
+        System.out.print(newLine);
+//        line = String.valueOf(binary ^ k);
+//        System.out.println(line);
+//        System.out.println(binary);
+//        System.out.println(k);
     }
 }
 /*
