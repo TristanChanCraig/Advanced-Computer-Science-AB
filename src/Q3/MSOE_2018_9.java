@@ -20,11 +20,13 @@ public class MSOE_2018_9 {
         }
         String strKey = "000000" + Integer.toBinaryString(key);
         String newStrBinary = "";
-        for (int i = 0; i < strBinary.length(); i++) {
-            if (i < strKey.length()) newStrBinary += strBinary.charAt(i) ^ strKey.charAt(i);
-            else newStrBinary += strBinary.charAt(i) ^ strKey.charAt(i % (strKey.length()-1)); // fix
+        int cnt = 0;
+        for (int i = 0; i < strBinary.length(); i++) {// fix
+            if (cnt == strKey.length()) cnt = 1;
+//            System.out.println(cnt);
+            newStrBinary += strBinary.charAt(i) ^ strKey.charAt(cnt);
+            cnt++;
         }
-        System.out.println(newStrBinary);
         String newLine = "";
         for (int i = 0; i < newStrBinary.length(); i+=6) {
             int ascii = Integer.parseInt(newStrBinary.substring(i, i+6), 2) + 32;
@@ -32,8 +34,10 @@ public class MSOE_2018_9 {
             newLine += c;
         }
 
-        System.out.println(strBinary);
-        System.out.println(strKey);
+//        System.out.println(strBinary);
+//        System.out.println(strKey);
+//        System.out.println(newStrBinary);
+//        System.out.println(strKey.length());
         System.out.print(newLine);
 //        line = String.valueOf(binary ^ k);
 //        System.out.println(line);
@@ -44,5 +48,12 @@ public class MSOE_2018_9 {
 /*
 Welcome to MSOE
 8675309
-Math.pow(Integer.parseInt(strBinary.substring(strBinary.length()-1-i, strBinary.length()-i)), i)
+
+Enter plain cipher or text: Welcome to MSOE
+Enter key: 8675309
+W$I<"LG++U"ID11
+
+Enter plain cipher or text: W$I<"LG++U"ID11
+Enter key: 8675309
+WELCOME TO MSOE
  */
