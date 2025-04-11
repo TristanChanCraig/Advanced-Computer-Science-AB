@@ -36,6 +36,19 @@ public class MSOE_2009_9 {
                 for (int j = 0; j < mat[0].length; j++)
                     if (mat[i][j] == 0) mat[i][j] = 9999;
 
+//            for (int i = 0; i < mat.length; i++) {
+//                for (int j = 0; j < mat[0].length; j++) {
+//                    int deg = mat[i][j];
+//                    if (deg != 0 && deg != 9999) {
+//                        for (int k = 0; k < mat[j].length; k++) {
+//                            if (mat[j][k] != 0 && mat[j][k] != 9999) {
+//                                mat[i][k] = mat[i][j] + mat[j][k];
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+
             for (int i = 0; i < mat.length; i++) {
                 for (int j = 0; j < mat[0].length; j++) {
                     int deg = mat[i][j];
