@@ -79,9 +79,53 @@ public class MSOE_2009_8 {
             }
             print(first);
 
+            System.out.println("\n\n");
+            index = 0;
+            for (int i = 0; i < second.length - 1; i++) {
+                for (int j = 0; j < second[0].length - 1; j++) {
+                    if (Objects.equals(second[i][j], "*")) {
+                        second[i][j] = alph.substring(index, index+1);
+                        index++;
+                        nextTo(second, i, j, i - 1, j - 1);
+                        nextTo(second, i, j, i - 1, j);
+                        nextTo(second, i, j, i - 1, j + 1);
+                        nextTo(second, i, j, i, j - 1);
+                        nextTo(second, i, j, i, j + 1);
+                        nextTo(second, i, j, i + 1, j - 1);
+                        nextTo(second, i, j, i + 1, j);
+                        nextTo(second, i, j, i + 1, j + 1);
+                    }
+                }
+            }
+            print(second);
+
 
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
 }
+/*
+    A A       A A     B B B B
+      A A   A A     B
+      A   A   A       B B B
+      A       A             B
+    A A       A A   B B B B
+
+
+
+        C C C       D D D D D
+      C       C     D
+      C       C     D D D
+      C       C     D
+        C C C       D D D D D
+
+
+
+    A A A     B B B     A A A A
+    A   A       B       A A A A
+      A A     B B       A A
+  C     A               A   A
+  C   A A A A A A A A A A     A
+  C
+ */
