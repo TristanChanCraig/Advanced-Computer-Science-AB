@@ -9,11 +9,11 @@ public class Prog1999w {
 
     }
 
-    public static int mdInt(int, int) {
+    public static int mdInt(int i, int j) {
 
     }
 
-    public static double mdDbl(double, double) {
+    public static double mdDbl(double i, double j) {
 
     }
 

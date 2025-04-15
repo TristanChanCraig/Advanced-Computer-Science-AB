@@ -26,28 +26,29 @@ public class Dictionary<K extends Comparable<K>, V extends Comparable<V>> extend
         public int hashCode() { return key.hashCode(); }
     }
 
-    public Dictionary() { super(); }
-    public Dictionary(int capacity) { super(capacity); }
-
+    public Dictionary() {super();}
+    public Dictionary(int cap) {super(cap);}
     public void insert(K key, V value) {
-        if (this.contains(key)) { // Update value if key already exists
+        if (this.contains(key)) { // update value
             int index = this.getIndex(key);
             Entry<K, V> current = (Entry<K, V>) table[index];
             while (current != null) {
-                if (current.key == key) {
+                if (current.key.equals(key)) {
                     current.value = value;
                     return;
                 }
                 current = (Entry<K, V>) current.next;
             }
         } else {
-            if (size >= table.length + DEFAULT_LOAD_FACTOR) this.resize(2 * table.length);
+            if (size >= table.length * DEFAULT_LOAD_FACTOR) this.resize(2 * table.length);
             int index = this.getIndex(key);
             Entry<K, V> entry = new Entry<>(key, value);
             if (table[index] == null) table[index] = entry;
             else {
                 Entry<K, V> current = (Entry<K, V>) table[index];
-                while (current.next != null) current = (Entry<K, V>) current.next;
+                while (current.next != null) {
+                    current = (Entry<K, V>) current.next;
+                }
                 current.next = entry;
             }
             size++;
@@ -56,57 +57,57 @@ public class Dictionary<K extends Comparable<K>, V extends Comparable<V>> extend
 
     public void remove(K key) {
         int index = this.getIndex(key);
-        Entry<K, V> current = (Entry<K, V>) table[index];
-        Entry<K, V> previous = null;
+        var current = (Entry<K, V>) table[index];
+        var prev = (Entry<K, V>) null;
+
         while (current != null) {
             if (current.key.equals(key)) {
-                if (previous == null) table[index] = current.next;
-                else previous.next = current.next;
+                if (prev == null) {
+                    table[index] = current.next;
+                } else {
+                    prev.next = current.next;
+                }
                 size--;
                 return;
             }
-            previous = current;
+            prev = current;
             current = (Entry<K, V>) current.next;
         }
     }
 
     public V get(K key) {
         int index = this.getIndex(key);
-//        for (Entry<K, V> current = (Entry<K, V>) table[index];
-//            current != null;
-//            current = (Entry<K, V>) current.next
-//        ) {}
-//        return null;
-        Entry<K, V> current = (Entry<K, V>) table[index];
-        while (current != null) {
+        for (Entry<K, V> current = (Entry<K, V>) table[index]; current != null; current = (Entry<K, V>) current.next) {
             if (current.key.equals(key)) return current.value;
-            current = (Entry<K, V>) current.next;
         }
         return null;
     }
 
     public V getOrDefault(K key, V defaultValue) {
-        V value = get(key);
-        return value != null ? value : defaultValue;
+        return get(key) != null ? get(key) : defaultValue;
     }
 
     public K getKey(V value) {
         for (var entry : table) {
             Entry<K, V> current = (Entry<K, V>) entry;
             while (current != null) {
-                if (current.key.equals(value)) return current.key;
+                if (current.value.equals(value)) {
+                    return current.key;
+                }
                 current = (Entry<K, V>) current.next;
             }
         }
         return null;
     }
 
-    public boolean containsKey(K key) { return this.contains(key); }
+    public boolean containsKey(K key) {return this.contains(key);}
     public boolean containsValue(V value) {
         for (var entry : table) {
             Entry<K, V> current = (Entry<K, V>) entry;
             while (current != null) {
-                if (current.key.equals(value)) return true;
+                if (current.value.equals(value)) {
+                    return true;
+                }
                 current = (Entry<K, V>) current.next;
             }
         }

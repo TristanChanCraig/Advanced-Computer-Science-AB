@@ -1,7 +1,7 @@
 package Q4.Prog1999w;
 
-import DataStructures.CircularLinkedList;
-import java.util.*;
+import DataStructures.*;
+import java.util.Random
 
 public class Farm {
     private static Random rand;
@@ -9,10 +9,26 @@ public class Farm {
     private int beans;
     private int oats;
     private int[][] riders;
-    private Stack cornCobs;
-    private Queue hayBales;
-    private Dictionary cows;
-    private Set turkeys;
-    private CircularLinkedList horses;
-    private Pig[] pens;
+    private Stack<Integer> cornCobs;
+    private Queue<Integer> hayBales;
+    private Dictionary<Integer, Cow> cows;
+    private Set<Turkey> turkeys;
+    private CircularLinkedList<Horse> horses;
+    private Pig[] pigs;
+
+    public Farm() {
+        rand = new Random();
+        cornCobs = new Stack<>();
+        hayBales = new Queue<>();
+        cows = new Dictionary<>();
+        turkeys = new Set<>();
+        hayBales = new CircularLinkedList<>();
+        pigs = new Pig[500];
+    }
+
+    public void addCow(Cow cow) { cows.insert(cow.getId(), cow); }
+    public void addTurkey(Turkey turkey) { turkeys.insert(turkey); }
+    public void addHorse(Horse horse) { horses.add(horse); }
+    public void addPig(Pig pig) { pigs[pig.getId()] = pig; }
+    public void stockCorn() { }
 }
