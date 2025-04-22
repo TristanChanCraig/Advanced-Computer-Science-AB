@@ -100,9 +100,17 @@ public class Farm {
                 cnt += rider;
         return cnt;
     }
-    public double getCost() {  }
-    public double getIncome() {}
-    public double getProfit() {}
+    public double getCost() {
+        for (int i = 0; i < cows.size(); i++) {
+
+        }
+    }
+    public double getIncome() {
+
+    }
+    public double getProfit() {
+
+    }
     public ArrayList<> getAllAnimals() {
 
     }
