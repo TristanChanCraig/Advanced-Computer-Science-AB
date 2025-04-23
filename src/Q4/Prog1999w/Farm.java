@@ -101,19 +101,27 @@ public class Farm {
         return cnt;
     }
     public double getCost() {
-        for (int i = 0; i < cows.size(); i++) {
-
-        }
+        double cost = 0;
+        for (int i = 0; i < cows.size(); i++) cost += cows.get(i).getCost();
+        for (Turkey turkey : turkeys) cost += turkey.getCost();
+        for (int i = 0; i < horses.size(); i++) cost += horses.get(i).getCost();
+        for (int i = 0; i < pigs.length; i++) cost += pigs[i].getCost();
+        return cost;
     }
     public double getIncome() {
-
+        double income = 0;
+        for (int i = 0; i < cows.size(); i++) income += cows.get(i).getIncome();
+        for (Turkey turkey : turkeys) income += turkey.getIncome();
+        for (int i = 0; i < horses.size(); i++) income += horses.get(i).getIncome();
+        for (int i = 0; i < pigs.length; i++) income += pigs[i].getIncome();
+        return income;
     }
     public double getProfit() {
-
+        return getIncome() - getCost();
     }
-    public ArrayList<> getAllAnimals() {
-
+    public ArrayList<Integer> getAllAnimals() {
+        return new ArrayList();
     }
-    public int compareTo(Farm f) {}
+    public int compareTo(Farm f) { return 0; }
 
 }
