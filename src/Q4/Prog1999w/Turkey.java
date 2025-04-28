@@ -3,8 +3,8 @@ package Q4.Prog1999w;
 public class Turkey extends Animal implements Comparable<Turkey> {
     private double value;
 
-    public Turkey(int id, double weight, int cornCobs, int hayBales, int beans, int oats, double value) {
-        super(weight, cornCobs, hayBales, beans, oats);
+    public Turkey(int id, int weight, int cornCobs, int oats, double value) {
+        super(weight, cornCobs, 0, 0, oats);
         this.value = value;
     }
 
@@ -13,9 +13,7 @@ public class Turkey extends Animal implements Comparable<Turkey> {
     }
 
     @Override
-    public double getIncome() {
-        return super.getIncome();
-    }
+    public double getIncome() { return value * weight; }
 
     @Override
     public String toString() {

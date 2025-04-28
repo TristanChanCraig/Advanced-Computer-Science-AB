@@ -3,9 +3,9 @@ package Q4.Prog1999w;
 public class Horse extends Animal implements Comparable<Horse> {
     private String name;
     private double riderCost;
-    private int numRiders;
+    private int[][] numRiders;
 
-    public Horse(String name, double riderCost, double weight, int cornCobs, int hayBales, int beans, int oats, int numRiders) {
+    public Horse(String name, double riderCost, double weight, int cornCobs, int hayBales, int beans, int oats, int[][] numRiders) {
         super(weight, cornCobs, hayBales, beans, oats);
         this.name = name;
         this.riderCost = riderCost;
@@ -18,7 +18,9 @@ public class Horse extends Animal implements Comparable<Horse> {
 
     @Override
     public double getIncome() {
-        return super.getIncome();
+        int income = 0;
+        for (int[] row : numRiders) for (int riders : row) income += riders * riderCost;
+        return income;
     }
 
     @Override
@@ -30,5 +32,5 @@ public class Horse extends Animal implements Comparable<Horse> {
                 '}';
     }
 
-    public int compareTo(Horse horse) { return numRiders - horse.numRiders; } // idk
+    public int compareTo(Horse horse) { return Double.compare(getProfit(), horse.getProfit()); } // idk
 }

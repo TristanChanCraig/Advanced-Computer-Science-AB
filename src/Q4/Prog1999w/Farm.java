@@ -58,6 +58,26 @@ public class Farm {
             int id = rand.nextInt(1000, 9999);
             cows.insert(id, new Cow(id, rand.nextInt(1000, 1500), rand.nextInt(5, 8), rand.nextInt(1, 3), rand.nextInt(2, 5), rand.nextInt(1, 4), rand.nextInt(20, 100), milkPrice));
         }
+        for (int i = 0; i < rand.nextInt(10, 20); i++) {
+            turkeys.insert(new Turkey(rand.nextInt(100, 999), rand.nextInt(25, 35), rand.nextInt(1, 3), rand.nextInt(2, 4), rand.nextDouble(.75, .99)));
+        }
+        for (int i = 0; i < rand.nextInt(8, 10); i++) {
+            String c = "BCDFGHJKLMNPQRSTVWXYZ";
+            String v = "AEIOU";
+            String name = "";
+            name += c.charAt(rand.nextInt(0, 20));
+            name += c.charAt(rand.nextInt(0, 20));
+            name += v.charAt(rand.nextInt(0, 20));
+            name += c.charAt(rand.nextInt(0, 5));
+            riders = new int[3][7];
+            for (int j = 0; j < riders.length; j++) for (int k = 0; k < riders[0].length; k++) riders[j][k] = (j == 0) ? rand.nextInt(3, 7) : (j == 6) ? rand.nextInt(5, 10) : rand.nextInt(1, 5);
+            horses.add(new Horse(name, rand.nextDouble(7.0, 10.5), rand.nextInt(1500, 2000), rand.nextInt(2, 4), rand.nextInt(1, 3), rand.nextInt(2, 5), rand.nextInt(1, 4), riders));
+        }
+        int numPigs = rand.nextInt(12, 20);
+        pigs = new Pig[numPigs];
+        for (int i = 0; i < numPigs; i++) {
+            pigs[i] = new Pig(rand.nextInt(250, 300), rand.nextInt(5, 10), rand.nextInt(10, 20), rand.nextInt(20, 50), rand.nextDouble(2.25, 2.75));
+        }
 
     }
 

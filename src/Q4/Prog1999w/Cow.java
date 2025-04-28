@@ -16,7 +16,7 @@ public class Cow extends Animal implements Comparable<Cow> {
 
     @Override
     public double getIncome() {
-        return super.getIncome();
+        return milk * milkPrice;
     }
 
     @Override

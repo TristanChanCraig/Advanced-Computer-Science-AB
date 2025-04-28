@@ -3,8 +3,8 @@ package Q4.Prog1999w;
 public class Pig extends Animal {
     private double value;
 
-    public Pig(double weight, int cornCobs, int hayBales, int beans, int oats, double value) {
-        super(weight, cornCobs, hayBales, beans, oats);
+    public Pig(double weight, int cornCobs, int beans, int oats, double value) {
+        super(weight, cornCobs, 0, beans, oats);
         this.value = value;
     }
 
@@ -14,7 +14,7 @@ public class Pig extends Animal {
 
     @Override
     public double getIncome() {
-        return super.getIncome();
+        return weight * value;
     }
 
     @Override

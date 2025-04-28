@@ -40,16 +40,12 @@ public abstract class Animal implements IFarm {
     }
 
     public double getCost() {
-        return 0;
+        return (2.25 * hayBales) + (.19 * cornCobs) + (.07 * beans) + (.04 * oats);
     }
 
-    public double getIncome() {
-        return 0;
-    }
+    public abstract double getIncome();
 
-    public double getProfit() {
-        return 0;
-    }
+    public double getProfit() { return getIncome() - getCost(); }
 
     public String toString() {
         return "";
