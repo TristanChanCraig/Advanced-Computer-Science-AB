@@ -67,8 +67,8 @@ public class Farm {
             String name = "";
             name += c.charAt(rand.nextInt(0, 20));
             name += c.charAt(rand.nextInt(0, 20));
-            name += v.charAt(rand.nextInt(0, 20));
-            name += c.charAt(rand.nextInt(0, 5));
+            name += v.charAt(rand.nextInt(0, 5));
+            name += c.charAt(rand.nextInt(0, 20));
             riders = new int[3][7];
             for (int j = 0; j < riders.length; j++) for (int k = 0; k < riders[0].length; k++) riders[j][k] = (j == 0) ? rand.nextInt(3, 7) : (j == 6) ? rand.nextInt(5, 10) : rand.nextInt(1, 5);
             horses.add(new Horse(name, rand.nextDouble(7.0, 10.5), rand.nextInt(1500, 2000), rand.nextInt(2, 4), rand.nextInt(1, 3), rand.nextInt(2, 5), rand.nextInt(1, 4), riders));
@@ -133,11 +133,47 @@ public class Farm {
     }
     public double getCost() {
         double cost = 0;
-        for (int i = 0; i < cows.size(); i++) cost += cows.get(i).getCost();
+        for (Integer id : cows)  cost += cows.get(id).getCost();
         for (Turkey turkey : turkeys) cost += turkey.getCost();
         for (int i = 0; i < horses.size(); i++) cost += horses.get(i).getCost();
         for (int i = 0; i < pigs.length; i++) cost += pigs[i].getCost();
         return cost;
+    }
+    public double getCowProfit() {
+        double cost = 0;
+        double income = 0;
+        for (Integer id : cows) {
+            cost += cows.get(id).getCost();
+            income += cows.get(id).getIncome();
+        }
+        return income - cost;
+    }
+    public double getTurkeyProfit() {
+        double cost = 0;
+        double income = 0;
+        for (Turkey turkey : turkeys) {
+            income += turkey.getIncome();
+            cost += turkey.getCost();
+        }
+        return income - cost;
+    }
+    public double getHorseProfit() {
+        double cost = 0;
+        double income = 0;
+        for (int i = 0; i < horses.size(); i++) {
+            cost += horses.get(i).getCost();
+            income += horses.get(i).getIncome();
+        }
+        return income - cost;
+    }
+    public double getPigProfit() {
+        double cost = 0;
+        double income = 0;
+        for (int i = 0; i < pigs.length; i++) {
+            cost += pigs[i].getCost();
+            income += pigs[i].getIncome();
+        }
+        return income - cost;
     }
     public double getIncome() {
         double income = 0;
