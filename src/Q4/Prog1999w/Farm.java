@@ -124,6 +124,11 @@ public class Farm {
     public int getBeans() { return beans; }
     public int getOats() { return oats; }
     public double getMilkPrice() { return milkPrice; }
+    public int getMilk() {
+        int tot = 0;
+        for (Integer id : cows) tot += cows.get(id).getMilk();
+        return tot;
+    }
     public int getNumHorseRiders() {
         int cnt = 0;
         for (int[] e : riders)
