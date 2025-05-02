@@ -20,7 +20,7 @@ public class Prog1999w {
         int totMilk = 0;
         int turkeyWeights = 0;
         double totalCost = 0;
-        ArrayList<Cow> worstCows = new ArrayList<>();
+        Cow[] worstCows = new Cow[7];
         for (int i = 0; i < 5; i++) {
             var farm = farms.get(i);
             double dailyCost = farm.getHayBales() + farm.getCornCobs() + farm.getBeans() + farm.getOats();
@@ -50,11 +50,11 @@ public class Prog1999w {
                 var animal = animals.get(j);
                 if (animal instanceof Turkey) turkeyWeights += animal.getWeight();
                 if (animal instanceof Cow) {
-                    if (worstCows.isEmpty()) worstCows.add((Cow) animal);
+                    if (worstCows[0] != null) worstCows[0] = (Cow) animal;
                     else {
                         if (animal.getProfit() > worstCows.get(0).getProfit()) worstCows.add((Cow) animal);
                         else {
-                            for (int k = 0; k < worstCows.size(); k++) {
+                            for (int k = 0; k < worstCows.length; k++) {
                                 if (animal.getProfit() < worstCows.get(k).getProfit()) {
                                     worstCows.add(k, (Cow) animal);
                                     k--;
