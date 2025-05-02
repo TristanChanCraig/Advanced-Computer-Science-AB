@@ -182,7 +182,9 @@ public class Farm {
     }
     public double getIncome() {
         double income = 0;
-        for (int i = 0; i < cows.size(); i++) income += cows.get(i).getIncome();
+        for (Integer id : cows) {
+            income += cows.get(id).getIncome();
+        }
         for (Turkey turkey : turkeys) income += turkey.getIncome();
         for (int i = 0; i < horses.size(); i++) income += horses.get(i).getIncome();
         for (int i = 0; i < pigs.length; i++) income += pigs[i].getIncome();
