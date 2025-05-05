@@ -27,5 +27,5 @@ public class Cow extends Animal implements Comparable<Cow> {
                 '}';
     }
 
-    public int compareTo(Cow cow) { return milk - cow.getMilk(); } // idk
+    public int compareTo(Cow cow) { return (int) (getProfit() - cow.getProfit()); } // idk
 }

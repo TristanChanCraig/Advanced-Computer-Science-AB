@@ -81,6 +81,14 @@ public class Farm {
 
     }
 
+    public void removePigs() { pigs = null; }
+    public void removeHalfTurkeys() {
+        int i = 0;
+        while (i < turkeys.size() / 2) {
+            for (Turkey t : turkeys) turkeys.remove(t);
+            i++;
+        }
+    }
     public void addCow(Cow cow) { cows.insert(cow.getId(), cow); }
     public void addTurkey(Turkey turkey) { turkeys.insert(turkey); }
     public void addHorse(Horse horse) { horses.add(horse); }
@@ -201,6 +209,7 @@ public class Farm {
         for (int i = 0; i < pigs.length; i++) animals.add(pigs[i]);
         return animals;
     }
+    public void removeCow(int id) { cows.remove(id); }
     public int compareTo(Farm f) { return Double.compare(this.getIncome(), f.getIncome()); }
 
 }
